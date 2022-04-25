@@ -9,4 +9,3 @@ Hiện tai chỉ có:
 3. @react-navigation/native
 4. react-native-onboarding-swiper
 5. @react-navigation/native 
-6. @react-navigation/native-stack;
