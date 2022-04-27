@@ -2,27 +2,30 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import Footer from '../components/Footer.js';
 import Header from '../components/Header.js';
-import OnboardingScreen from '../screens/OnboardingScreen.js';
 import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
 
-export default function App() {
+const HomeScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
-        <Text> Homescreen </Text>
+        <Header/>
+        <Text> Hello </Text>
     </View>
-  );
+  )
 }
+
+
+export default HomeScreen;
 
 const styles = StyleSheet.create({
     header: {
-        height: 60,
-        padding: 15,
-        backgroundColor: '#16B830',
+        flex: 1,
+        paddingTop: 40,
+        borderBottomWidth: 10,
+        borderBottomColor: '#FFF000',
     },
     container: {
         flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
+        paddingTop: 30,
   },
 });

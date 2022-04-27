@@ -1,0 +1,26 @@
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View } from 'react-native';
+import Footer from '../components/Footer.js';
+import Header from '../components/Header.js';
+import React from 'react';
+
+export default function RankingScreen() {
+  return (
+    <View style={styles.container}>
+        <Header/>
+        <Text> Ranki </Text>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+    header: {
+        height: 60,
+        padding: 15,
+        backgroundColor: '#16B830',
+    },
+    container: {
+        flex: 1,
+        paddingTop: 0,
+  },
+});

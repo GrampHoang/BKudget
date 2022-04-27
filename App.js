@@ -6,21 +6,30 @@ import OnboardingScreen from './screens/OnboardingScreen.js';
 import HomeScreen from './screens/HomeScreen.js';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import LoginScreen from './screens/Login.js';
 
 const Stack = createNativeStackNavigator();
 
-export default function App() {
+const Stack2 = createNativeStackNavigator();
+const Home = () => {
+  return(
+    <NavigationContainer independent={true} screenOptions={{headerShown: false}}>
+      <Footer/>
+    </NavigationContainer>
+)
+}
+
+export default function App({navigation}) {
   return (
     <NavigationContainer>
-    <Stack.Navigator 
-      initialRouteName="Onboarding"
-      screenOptions={{
-        headerShown: false
-      }}
-    >
-        <Stack.Screen name="Onboarding" component={OnboardingScreen}/>
-        <Stack.Screen name="HomeScreen" component={HomeScreen} />
-    </Stack.Navigator>
+      <Stack.Navigator 
+        initialRouteName="Onboarding" screenOptions={{headerShown: false}}
+      >
+          <Stack.Screen name="Onboarding" component={OnboardingScreen}/>
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Home" component={Home} />
+
+      </Stack.Navigator>
   </NavigationContainer>
   );
 }

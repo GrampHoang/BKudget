@@ -1,11 +1,10 @@
 import { Image, StyleSheet, Text } from 'react-native';
 import React from 'react';
 import Onboarding from 'react-native-onboarding-swiper';
-import HomeScreen from './HomeScreen.js'
 
 const OnboardingScreen = ({navigation}) => (
   <Onboarding
-    onSkip={() => navigation.navigate("HomeScreen")}
+    onSkip={() => navigation.navigate("Login")}
     pages={[
       {
         backgroundColor: '#FBFFFB',
