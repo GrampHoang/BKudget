@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import Footer from '../components/Footer.js';
 import Header from '../components/Header.js';
 import React from 'react';
@@ -7,10 +7,11 @@ import { NavigationContainer } from '@react-navigation/native';
 
 const HomeScreen = ({navigation}) => {
   return (
-    <View style={styles.container}>
-        <Header/>
-        <Text> Hello </Text>
-    </View>
+      <View style={styles.container}>
+        <StatusBar translucent={false}/>
+          <Header/>
+          <Text> Hello </Text>
+      </View>
   )
 }
 
@@ -26,6 +27,5 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        paddingTop: 30,
   },
 });

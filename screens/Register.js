@@ -14,13 +14,16 @@ import { Dimensions } from "react-native";
 var pwidth = Dimensions.get('window').width; //full width
 //var height = Dimensions.get('window').height; //full height
 
-export default function LoginScreen({navigation}) {
-  const [username, setUsername] = useState("");
+export default function RegisterScreen({navigation}) {
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [phone, setPhone] = useState("");
+  const [username, setUsername] = useState("");
  
   return (
     <View style={styles.container}>
       <Image style={styles.logo} source={require("../assets/favicon.png")} />
+
       <StatusBar style="auto" />
       <View style={styles.inputView}>
         <TextInput
@@ -30,7 +33,16 @@ export default function LoginScreen({navigation}) {
           onChangeText={(username) => setUsername(username)}
         />
       </View>
- 
+
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.TextInput}
+          placeholder="Số điện thoại"
+          placeholderTextColor="#808080"
+          onChangeText={(phone) => setPhone(phone)}
+        />
+      </View>
+
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
@@ -40,28 +52,27 @@ export default function LoginScreen({navigation}) {
           onChangeText={(password) => setPassword(password)}
         />
       </View>
- 
-      <TouchableOpacity>
-        <Text style={styles.forgot_button}>Quên mật khẩu?</Text>
-      </TouchableOpacity>
+
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.TextInput}
+          placeholder="Nhập lại mật khẩu"
+          placeholderTextColor="#808080"
+          secureTextEntry={true}
+          onChangeText={(password) => setPassword(password)}
+        />
+      </View>
  
       <TouchableOpacity style={styles.loginBtn} onPress={() => navigation.navigate("Home")}>
-        <Text style={styles.loginText}>ĐĂNG NHẬP</Text>
+        <Text style={styles.loginText}>ĐĂNG Kí</Text>
       </TouchableOpacity>
 
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', height: 30, marginTop: 40, marginBottom: 5,}}>
-      <Text style={styles.reg_text}>Chưa có tài khoản? </Text>
-        <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-        <Text style={styles.regBtn_text}>Đăng kí</Text>
+      <Text style={styles.reg_text}>Đã có tài khoản? </Text>
+        <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+        <Text style={styles.regBtn_text}>Đăng nhập</Text>
       </TouchableOpacity>
       </View>
-        
-
-      <Text style={styles.guest_text}>Hoặc</Text>
-
-      <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-      <Image style={styles.guest} source={require("../assets/favicon.png")} />
-      </TouchableOpacity>
     </View>
   );
 }
@@ -95,6 +106,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginLeft: 20,
     fontSize: 15,
+    color: '#000000',
   },
  
   forgot_button: {
@@ -114,6 +126,7 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: "center",
     justifyContent: "center",
+    marginTop: 40,
     marginBottom: -10,
     backgroundColor: "#16B830",
   },
