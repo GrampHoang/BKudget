@@ -7,6 +7,7 @@ import React from 'react';
 export default function RankingScreen() {
   return (
     <View style={styles.container}>
+      <StatusBar translucent={false}/>
         <Header/>
         <Text> Ranki </Text>
     </View>
