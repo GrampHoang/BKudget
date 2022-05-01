@@ -7,6 +7,7 @@ import React from 'react';
 export default function MissionsScreen() {
   return (
     <View style={styles.container}>
+      <StatusBar translucent={false}/>
         <Header/>
         <Text> List of missions, daily and monthly </Text>
     </View>

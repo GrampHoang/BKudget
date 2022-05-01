@@ -7,6 +7,7 @@ import React from 'react';
 export default function DetailScreen() {
   return (
     <View style={styles.container}>
+      <StatusBar translucent={false}/>
         <Header/>
         <Text> Your Profile </Text>
     </View>
