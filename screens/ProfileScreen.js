@@ -3,13 +3,15 @@ import { StyleSheet, Text, View } from 'react-native';
 import Footer from '../components/Footer.js';
 import Header from '../components/Header.js';
 import React from 'react';
+import Profile from '../components/ProfileScreen/Profile'
+import { userInformation } from '../data/userInfo'
 
 export default function DetailScreen() {
   return (
     <View style={styles.container}>
       <StatusBar translucent={false}/>
         <Header/>
-        <Text> Your Profile </Text>
+      <Profile id="0"/>
     </View>
   );
 }

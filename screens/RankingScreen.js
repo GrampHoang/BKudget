@@ -17,6 +17,11 @@ export default function RankingScreen() {
           <User point="92" day="18"/>
           <User point="76" day="14"/>
           <User point="64" day="12"/>
+          <User point="64" day="12"/>
+          <User point="64" day="12"/>
+          <User point="64" day="12"/>
+          <User point="64" day="12"/>
+          <User point="64" day="12"/>
         </ScrollView>
     </View>
   );
