@@ -13,18 +13,19 @@ export default function DetailScreen() {
         <Header/>
         <Month/>
         <ScrollView>
-        <Date money="-500.000" past="0"/>
+        <Date money="-500.000" past="0" date="12"/>
           <Detail content='Ăn sáng' money='-20.000' type='food'/>
           <Detail content='Điện nước' money='-398.000' type='bill'/>
           <Detail content='Rượu bia' money='-200.000' type='drink'/>
-        <Date money="-500.000" past="1"/>
+        <Date money="-500.000" past="1" date="11"/>
           <Detail content='Ăn sáng' money='-20.000' type='food'/>
           <Detail content='Điện nước' money='-398.000' type='bill'/>
           <Detail content='Rượu bia' money='-200.000' type='drink'/>
-        <Date money="-500.000" past="3"/>
+        <Date money="+2.968.500.000" past="3" date="09"/>
           <Detail content='Ăn sáng' money='-20.000' type='food'/>
           <Detail content='Điện nước' money='-398.000' type='bill'/>
           <Detail content='Rượu bia' money='-200.000' type='drink'/>
+          <Detail content='Lương' money='+3.000.000.000' type='salary'/>
         </ScrollView>
     </View>
   );

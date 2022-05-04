@@ -29,7 +29,7 @@ export default function Detail(props) {
                 {props.content}
             </Text>
             <Text style={moneystyle}>
-                {props.money} Đồng
+                {props.money}
             </Text>
         </View>
     )
@@ -44,15 +44,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     circle: {
-        height: 60,
-        width: 60,
-        backgroundColor: '#FFDADA',
-        borderRadius: 50,
+        flex: 3,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        marginLeft: 20,
-        marginRight: 20,
+        
     },
     content: {
         fontSize: 20,
@@ -61,12 +57,12 @@ const styles = StyleSheet.create({
     moneyminus:{
         color: '#E43232',
         fontSize: 16,
-        flex: 4,
+        flex: 6,
     },
     moneyplus:{
         color: '#45CB85',
         fontSize: 16,
-        flex: 4,
+        flex: 6,
     },
     img: {
         height: 40,

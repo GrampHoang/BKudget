@@ -9,16 +9,12 @@ export default function Date(props) {
         var date = "Hôm qua";
     }
     else {
-        var date = props.past + ' ngày trước';
+        var date = "Ngày " + props.date;
     }
     return (
         <View style={styles.container}>
-            <Text style={styles.date}>02</Text>
-            <View style={styles.month}>
-                <Text style={styles.month}>{date}</Text>
-                <Text style={styles.month}>08/2021</Text>
-            </View>
-            <Text style={moneystyle}>{props.money} Đồng</Text>
+            <Text style={styles.date}>{date}</Text>
+            <Text style={moneystyle}>{props.money}</Text>
         </View>
     )
 }
@@ -35,9 +31,10 @@ const styles = StyleSheet.create({
     date:{
         color: '#000000',
         fontSize: 30,
-        flex: 1,
-        textAlign: 'center',
+        flex: 4,
+        textAlign: 'left',
         fontWeight: 'bold',
+        paddingLeft: 10,
     },
     month:{
         color: '#000000',
@@ -54,15 +51,15 @@ const styles = StyleSheet.create({
     },
     moneyminus:{
         color: '#E43232',
-        fontSize: 16,
-        flex:5,
+        fontSize: 24,
+        flex: 7,
         fontWeight: 'bold',
         textAlign: 'center',
     },
     moneyplus:{
         color: '#45CB85',
-        fontSize: 16,
-        flex: 5,
+        fontSize: 24,
+        flex: 7,
         fontWeight: 'bold',
         textAlign: 'center',
     },
