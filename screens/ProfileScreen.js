@@ -4,7 +4,6 @@ import Footer from '../components/Footer.js';
 import Header from '../components/Header.js';
 import React from 'react';
 import Profile from '../components/ProfileScreen/Profile'
-import { userInformation } from '../data/userInfo'
 
 export default function DetailScreen() {
   return (
