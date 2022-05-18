@@ -21,8 +21,10 @@ export default function Date(props) {
 
 const styles = StyleSheet.create({
     container: {
-        height: 40,
-        backgroundColor: '#95C0E7',
+        height: 60,
+        backgroundColor: '#E9E9E9',
+        borderColor: "#A4A4A4",
+        borderWidth: 1,
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'center',
@@ -30,11 +32,11 @@ const styles = StyleSheet.create({
     },
     date:{
         color: '#000000',
-        fontSize: 30,
+        fontSize: 24,
         flex: 4,
         textAlign: 'left',
         fontWeight: 'bold',
-        paddingLeft: 10,
+        paddingLeft: 30,
     },
     month:{
         color: '#000000',
@@ -57,7 +59,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     moneyplus:{
-        color: '#45CB85',
+        color: '#16B830',
         fontSize: 24,
         flex: 7,
         fontWeight: 'bold',

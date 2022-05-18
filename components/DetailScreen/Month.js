@@ -29,7 +29,7 @@ export default function Month() {
 const styles = StyleSheet.create({
     container: {
         height: 50,
-        backgroundColor: '#45CB85',
+        backgroundColor: '#4FC462',
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'center',
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     },
     text:{
         color: '#FFFFFF',
-        fontSize: 24,
+        fontSize: 20,
         textAlign: 'center',
         flex: 5,
     },
@@ -57,6 +57,8 @@ const styles = StyleSheet.create({
         minHeight: 60,
         display: 'flex',
         flexDirection: 'row',
+        borderWidth: 1,
+        borderColor: "#A4A4A4",
     },
     thu:{
         flex: 1,
@@ -73,11 +75,13 @@ const styles = StyleSheet.create({
         borderLeftWidth: 1,
     },
     moneyminus:{
+        fontWeight: "bold",
         color: '#E43232',
         fontSize: 24,
     },
     moneyplus:{
-        color: '#45CB85',
+        fontWeight: "bold",
+        color: '#16B830',
         fontSize: 24,
     },
     revenueHeader:{

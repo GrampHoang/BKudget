@@ -66,6 +66,9 @@ export default function LoginScreen({navigation}) {
   );
 }
  
+
+//E0FFE0: Light green
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -82,8 +85,10 @@ const styles = StyleSheet.create({
   },
  
   inputView: {
+    borderColor: "transparent",
+    borderWidth: 2,
     backgroundColor: "#FFFFFF",
-    borderRadius: 30,
+    borderRadius: 5,
     width: "80%",
     height: 55,
     marginBottom: 20,
@@ -106,16 +111,17 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     fontStyle: 'italic',
     textDecorationLine: 'underline',
+    color: "#000000"
   },
  
   loginBtn: {
     width: "80%",
-    borderRadius: 25,
+    borderRadius: 5,
     height: 50,
     alignItems: "center",
     justifyContent: "center",
     marginBottom: -10,
-    backgroundColor: "#16B830",
+    backgroundColor: "#4FC462",
   },
    
   reg_text:{
@@ -145,7 +151,8 @@ const styles = StyleSheet.create({
 
   guest: {
     marginTop: 0,
-    width: 40,
-    height: 40,
+    backgroundColor: "#FFFFFF",
+    width: 50,
+    height: 50,
   },
 });

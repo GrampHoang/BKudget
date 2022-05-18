@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
         flex: 6,
     },
     moneyplus:{
-        color: '#45CB85',
+        color: '#16B830',
         fontSize: 16,
         flex: 6,
     },
