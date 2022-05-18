@@ -101,7 +101,6 @@ const HomeScreen = ({navigation}) => {
           style={{ labels: { display: "none" } }}
           startAngle = {30}
           endAngle = {390}
-          labels = {false}
         />
         <VictoryLabel
           textAnchor="middle"
