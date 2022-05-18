@@ -29,7 +29,7 @@ export default function Month() {
 const styles = StyleSheet.create({
     container: {
         height: 50,
-        backgroundColor: '#4FC462',
+        backgroundColor: '#45CB85',
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'center',
