@@ -11,6 +11,8 @@ import { monthMission } from "../data/missionMonth";
 import Mission from "../components/MissionScreen/Mission";
 import Header from "../components/Header.js";
 import React from "react";
+import { COLORS } from "../constants/themes";
+
 
 export default function MissionsScreen() {
   const [daily, setDaily] = React.useState(true);
@@ -55,6 +57,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 0,
+    backgroundColor: COLORS.verylightgray,
   },
   headercontent: {
     borderBottomWidth: 1,

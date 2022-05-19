@@ -37,7 +37,7 @@ const Footer = () => {
           },
         }}/>
       <Tab.Screen name="Ranking" component={RankingScreen} options={{
-          tabBarLabel: 'Xếp hạng',
+          tabBarLabel: 'Xếp hạng',  
           tabBarIcon: ({color, size}) => {
             return <Ionicons name="trophy" size={size} color={color} />;
           },

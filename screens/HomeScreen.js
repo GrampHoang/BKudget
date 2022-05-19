@@ -6,7 +6,6 @@ import React from 'react';
 import { VictoryPie, VictoryLabel } from 'victory-native';
 import {Svg} from 'react-native-svg';
 
-
 import {categoriesData } from '../data/category.js';
 import { COLORS } from '../constants/themes.js';
 
@@ -122,7 +121,7 @@ const HomeScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
         <Header/>
-        <Text style={styles.header}>0/1.000.000</Text>
+        <Text style={styles.header}> 0/1.000.000</Text>
         <View style= {{flex: 1}}>
           {renderChart()}
         </View>
@@ -146,6 +145,7 @@ const HomeScreen = ({navigation}) => {
               />
               <TextInput
                 placeholder="Số tiền"
+                keyboardType = "number-pad"
                 style = {styles.input}
               />
               <Pressable
@@ -169,12 +169,13 @@ const styles = StyleSheet.create({
         height: 40,
         borderWidth: 1,
         borderColor: '#000000',
-        backgroundColor: '#95C0E7',
+        backgroundColor: '#FFFFFF',
         textAlign: 'center',
         padding: 5,
         fontSize: 20,
     },
     container: {
+        backgroundColor: COLORS.verylightgray,
         flex: 1,
         paddingTop: 0,
         flexDirection: 'column',

@@ -5,11 +5,11 @@ export default function Month() {
         <>
         <View style={styles.container}>
             <View style={styles.arrow}>
-                <Image source={require('../../assets/left-arrow.png')} style={styles.leftArrow}/>
+                <Image source={require('../../assets/left-arrow-white.png')} style={styles.leftArrow}/>
             </View>
             <Text style={styles.text}>Tháng 12 Năm 2021</Text>
             <View style={styles.arrow}>
-            <Image source={require('../../assets/right-arrow.png' )} style={styles.rightArrow}/>
+            <Image source={require('../../assets/right-arrow-white.png' )} style={styles.rightArrow}/>
             </View>
         </View>
         <View style={styles.revenue}>
@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
         borderColor: "#A4A4A4",
     },
     thu:{
+        backgroundColor: '#FAFAFA',
         flex: 1,
         display: 'flex',
         justifyContent: 'center',
@@ -68,6 +69,7 @@ const styles = StyleSheet.create({
         borderRightWidth: 1,
     },
     chi:{
+        backgroundColor: '#FAFAFA',
         flex: 1,
         display: 'flex',
         justifyContent: 'center',
@@ -80,6 +82,7 @@ const styles = StyleSheet.create({
         fontSize: 24,
     },
     moneyplus:{
+        
         fontWeight: "bold",
         color: '#16B830',
         fontSize: 24,

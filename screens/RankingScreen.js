@@ -4,6 +4,7 @@ import Footer from '../components/Footer.js';
 import Header from '../components/Header.js';
 import React from 'react';
 import User from '../components/RankingScreen/User.js';
+import { COLORS } from "../constants/themes";
 
 export default function RankingScreen() {
   return (
@@ -33,6 +34,7 @@ const styles = StyleSheet.create({
         fontSize: 32,
     },
     container: {
+        backgroundColor: COLORS.verylightgray,
         flex: 1,
         paddingTop: 0,
   },
