@@ -1,34 +1,41 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, FlatList, TouchableOpacity, Image, Modal, Pressable, TextInput} from 'react-native';
-import Footer from '../components/Footer.js';
 import Header from '../components/Header.js';
 import React from 'react';
 import { VictoryPie, VictoryLabel } from 'victory-native';
 import {Svg} from 'react-native-svg';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import styles from '../components/HomeScreen/style.js';
 
 import {categoriesData } from '../data/category.js';
 import { COLORS } from '../constants/themes.js';
 
 //
 
+
 const HomeScreen = ({navigation}) => {
 
   const [categories, setCategories] = React.useState(categoriesData)
   const [modalVisible, setModalVisible] = React.useState(false);
-  const [categoryName, setcategoryName] = React.useState("");
+  const [goalVisible, setGoalVisible] = React.useState(false);
+  const [categoryID, setCategoryID] = React.useState(0);
+
+  function setGoal() {
+    const firstLaunch = async () => {
+      try {
+        return await AsyncStorage.getItem(FIRST_LAUNCHED)
+      } catch(e) {}
+    }
+    if (firstLaunch === 'true') 
+    {
+      setGoalVisible(true);
+    }
+  }
 
   function renderCategoryList() {
-    //let expenseSum = categories.map((item) => {
-    //  let confirmExpenses = item.expenses
-    //  var total = confirmExpenses.reduce((a, b) => a + (b.total || 0), 0)
-  //
-    //  return total
-    //})
 
     const renderItem = ({ item }) => (
       <TouchableOpacity
-          onPress={() => [setModalVisible(true), setcategoryName(item.name)]}
+          onPress={() => [setModalVisible(true), setCategoryID(item.id)]}
           style={{
               flex: 1,
               flexDirection: 'column',
@@ -47,7 +54,7 @@ const HomeScreen = ({navigation}) => {
           />
         </View>
         <Text style = {{textAlign: 'center',marginVertical: 5, fontSize: 18, color: item.color}}>
-          {item.expenses.reduce((a, b) => a + (b.total || 0), 0)}
+          {item.expense}
         </Text>
       </TouchableOpacity>
   )
@@ -63,10 +70,8 @@ const HomeScreen = ({navigation}) => {
 
   function renderChart() {
     let chartData = categories.map((item) => {
-      let expenseList = item.expenses
-      var total = expenseList.reduce((a, b) => a + (b.total || 0), 0)
       return {
-        total: total,
+        total: item.expense,
         color: item.color
       }
     })
@@ -118,9 +123,43 @@ const HomeScreen = ({navigation}) => {
     );
   }
 
+  const [amount, setAmount] = React.useState(0);
+  const [des, setDes] = React.useState('');
+  const handleAddExpense = () => {
+
+  }
+
   return (
     <View style={styles.container}>
         <Header/>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={goalVisible}
+          onRequestClose={() => {
+            setGoalVisible(!goalVisible);
+          }}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalTitle}>Nhập mục tiêu tài chính của bạn</Text>
+              <TextInput
+                placeholder="Số tiền"
+                style = {styles.input}
+                keyboardType = "numeric"
+                onChangeText={newText => setAmount(newText)}
+              />
+              <Pressable
+                style={styles.inputButton}
+                onPress={() => {
+                  setGoalVisible(!goalVisible)
+                }}
+              >
+                <Text style={styles.buttontextStyle}>OK</Text>
+              </Pressable>
+            </View>
+          </View>
+        </Modal>
         <Text style={styles.header}>0/1.000.000</Text>
         <View style= {{flex: 1}}>
           {renderChart()}
@@ -138,18 +177,24 @@ const HomeScreen = ({navigation}) => {
         >
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              <Text style={styles.modalTitle}>{categoryName}</Text>
+              <Text style={styles.modalTitle}>{categoriesData[categoryID].name}</Text>
               <TextInput
                 placeholder="Mô tả"
                 style = {styles.input}
+                onChangeText={newText => setDes(newText)}
               />
               <TextInput
                 placeholder="Số tiền"
                 style = {styles.input}
+                keyboardType = "numeric"
+                onChangeText={newText => setAmount(newText)}
               />
               <Pressable
                 style={styles.inputButton}
-                onPress={() => setModalVisible(!modalVisible)}
+                onPress={() => {
+                  handleAddExpense()
+                  setModalVisible(!modalVisible)
+                }}
               >
                 <Text style={styles.buttontextStyle}>OK</Text>
               </Pressable>
@@ -160,62 +205,8 @@ const HomeScreen = ({navigation}) => {
   )
 }
 
-
 export default HomeScreen;
 
-const styles = StyleSheet.create({
-    header: {
-        height: 40,
-        borderWidth: 1,
-        borderColor: '#000000',
-        backgroundColor: '#95C0E7',
-        textAlign: 'center',
-        padding: 5,
-        fontSize: 20,
-    },
-    container: {
-        flex: 1,
-        paddingTop: 0,
-        flexDirection: 'column',
-        //alignItems: "center",
-        justifyContent: "center",
-    },
-    centeredView: {
-      flex: 1,
-      justifyContent: "center",
-      alignItems: "center",
-      marginTop: 22
-    },
-    modalView: {
-      height: 400,
-      width: 300,
-      margin: 20,
-      backgroundColor: "white",
-      borderRadius: 20,
-      borderColor: 'black',
-      borderWidth: 1,
-      padding: 10,
-      alignItems: "center",
-    },
-    modalTitle: {
-      fontSize: 30,
-      margin: 20,
-    },
-    buttontextStyle: {
-      color: '#16B830',
-      fontSize: 40,
-      fontWeight: 'bold', 
-      marginTop: 30,
-    },
-    input: {
-      borderColor: '#000000',
-      borderWidth: 1,
-      borderRadius: 10,
-      width: 245,
-      height: 50,
-      margin: 10,
-      backgroundColor: '#EFEFEF',
-      textAlign: 'center',
-      fontSize: 20,
-    }
-});
+
+
+

@@ -21,7 +21,9 @@ const Home = () => {
 }
 
 
+
 export default function App({navigation}) {
+  
   return (
     <NavigationContainer>
       <Stack.Navigator 

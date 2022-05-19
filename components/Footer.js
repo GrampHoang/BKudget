@@ -15,7 +15,7 @@ const Tab = createBottomTabNavigator();
 const Footer = () => {
   return (
     <Tab.Navigator
-      defaultScreenOptions={"Home"}
+      initialRouteName = "Home"
       screenOptions={{
         headerShown: false,
         tabBarInactiveTintColor: '#748c94',
@@ -55,7 +55,7 @@ const Footer = () => {
           },
         }}/>
       <Tab.Screen name="Profile" component={ProfileScreen} options={{
-          tabBarLabel: 'Lịch sử',
+          tabBarLabel: 'Hồ sơ',
           tabBarIcon: ({color, size}) => {
             return <Ionicons name="person" size={size} color={color} />;
           },
