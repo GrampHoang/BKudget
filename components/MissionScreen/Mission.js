@@ -16,6 +16,7 @@ export default function Mission(props) {
             ) : <Image source={require(unfinished)} style={styles.image} />
             }
                 <Text style={styles.content}>{props.content}</Text>
+                <Text style={styles.point}>{ props.point}</Text>
             </View>
             {/* <Text style={styles.description}>{props.description}</Text> */}
         </TouchableOpacity>
@@ -51,6 +52,13 @@ const styles = StyleSheet.create({
         fontSize: 25,
         flex: 3.5,
         paddingLeft: 25,
+    },
+    point: {
+        fontSize: 22,
+        marginRight: 10,
+        // borderColor: 'black',
+        // borderWidth: 1,
+        // borderRadius: 50,
     },
     description: {
         // display: 'none',
