@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
     modalTitle: {
       fontSize: 30,
       margin: 20,
+      textAlign: "center",
     },
     buttontextStyle: {
       color: '#16B830',
