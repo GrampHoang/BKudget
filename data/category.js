@@ -1,12 +1,5 @@
 import { COLORS } from "../constants/themes";
 
-//import var food = require("../assets/category/food_icon.png");
-//import var drink = require("../assets/category/drink_icon.png");
-//import var shop = require("../assets/category/shop_icon.png");
-//import var bill = require("../assets/category/bill_icon.png");
-//import var other = require("../assets/category/other_icon.png");
-//import var income = require("../assets/category/income_icon.png");
-
 export let categoriesData = [
     {
         id: 0,
