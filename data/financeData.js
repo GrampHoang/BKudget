@@ -20,7 +20,7 @@ export async function storeExpenseListData(des, amount, ID) {
     const newExpense = {
       ID: ID,
       description: des,
-      name: categoriesData[ID],
+      name: categoriesData[ID].name,
       Date: new Date().getDate(),
       month: new Date().getMonth() + 1,
       expense: amount
@@ -35,6 +35,7 @@ export async function storeExpenseListData(des, amount, ID) {
     else expenseList.push(newExpense)
     const jsonValue = JSON.stringify(expenseList)
     await AsyncStorage.setItem('@Expense_list', jsonValue)
+    
   } catch (e) {
     // saving error
   }
