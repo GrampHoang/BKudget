@@ -1,25 +1,28 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TextInput,
-  Button,
-  TouchableOpacity,
-} from "react-native";
+import {StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity } from "react-native";
 import { Dimensions } from "react-native";
+import { authenthication } from '../firebase.js';
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 
 var pwidth = Dimensions.get('window').width; //full width
-//var height = Dimensions.get('window').height; //full height
+//var height = Dimensions.get('window').heigh t; //full height
+  const auth = new getAuth(authenthication)
 
 export default function RegisterScreen({navigation}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [username, setUsername] = useState("");
- 
+  const RegUser = () => {
+    createUserWithEmailAndPassword(auth, email, password)
+    .then((er)=>{
+      console.log(er);
+    })
+    .catch((er)=>{
+      console.log(er);
+    })
+  }
   return (
     <View style={styles.container}>
       <Image style={styles.logo} source={require("../assets/favicon.png")} />
@@ -37,9 +40,9 @@ export default function RegisterScreen({navigation}) {
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
-          placeholder="Số điện thoại"
+          placeholder="Email"
           placeholderTextColor="#808080"
-          onChangeText={(phone) => setPhone(phone)}
+          onChangeText={(email) => setEmail(email)}
         />
       </View>
 
@@ -53,7 +56,7 @@ export default function RegisterScreen({navigation}) {
         />
       </View>
 
-      <View style={styles.inputView}>
+      {/* <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
           placeholder="Nhập lại mật khẩu"
@@ -61,10 +64,10 @@ export default function RegisterScreen({navigation}) {
           secureTextEntry={true}
           onChangeText={(password) => setPassword(password)}
         />
-      </View>
+      </View> */}
  
-      <TouchableOpacity style={styles.loginBtn} onPress={() => navigation.navigate("Home")}>
-        <Text style={styles.loginText}>ĐĂNG Kí</Text>
+      <TouchableOpacity style={styles.loginBtn} onPress={RegUser}>
+        <Text style={styles.loginText}>ĐĂNG KÝ</Text>
       </TouchableOpacity>
 
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', height: 30, marginTop: 40, marginBottom: 5,}}>
