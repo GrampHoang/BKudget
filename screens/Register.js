@@ -7,15 +7,15 @@ import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 
 var pwidth = Dimensions.get('window').width; //full width
 //var height = Dimensions.get('window').heigh t; //full height
-  const auth = new getAuth(authenthication)
-
 export default function RegisterScreen({navigation}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [username, setUsername] = useState("");
+  const [isIn, setisIn] = useState(false);
+
   const RegUser = () => {
-    createUserWithEmailAndPassword(auth, email, password)
+    createUserWithEmailAndPassword(authenthication, email, password)
     .then((er)=>{
       console.log(er);
     })
@@ -23,6 +23,8 @@ export default function RegisterScreen({navigation}) {
       console.log(er);
     })
   }
+
+  {isIn}
   return (
     <View style={styles.container}>
       <Image style={styles.logo} source={require("../assets/favicon.png")} />

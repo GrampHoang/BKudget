@@ -3,7 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import Constants from 'expo-constants';
+import { getFirestore } from 'firebase/firestore/lite';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -20,4 +20,5 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const authenthication = getAuth(app);
+export const authenthication = getAuth(app);
+export const db = getFirestore(app)
