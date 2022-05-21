@@ -7,19 +7,46 @@ import {
   TouchableOpacity,
   Image
 } from "react-native";
-import { dailyMission } from "../data/missionDaily";
-import { monthMission } from "../data/missionMonth";
 import Mission from "../components/MissionScreen/Mission";
-import Header from "../components/Header.js";
-import React from "react";
+import React, {useState, useEffect} from 'react';
+import { storeMissionData } from "../data/localmission";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useIsFocused } from '@react-navigation/native';
 
 export default function MissionsScreen() {
-  const [daily, setDaily] = React.useState(true);
-  const [missionList, setMissionList] = React.useState(dailyMission);
-  const [missionType, setMissionType] = React.useState("Nhiệm vụ hằng ngày");
-  // default mission page content
+  storeMissionData();
 
+  const [daily, setDaily] = useState(true);
+  const [missionList, setMissionList] = useState([]);
+  const [dailymission, setDailymission] = useState([]);
+  const [monthmission, setMonthmission] = useState([]);
+  const [missionType, setMissionType] = useState("Nhiệm vụ hằng ngày");
+  // default mission page content
+  useEffect(() => { 
+      getMission()
+  }, []);
+  const isFocused = useIsFocused();
+  useEffect(() => { 
+    if (!isFocused) {
+        getMission()
+    }
+  }, [isFocused]);
   
+  async function getMission() {
+    try {
+      const dailIn = await AsyncStorage.getItem('@DailyMission')
+      const dail = JSON.parse(dailIn);
+      setDailymission(dail);
+      setDaily(true);
+      setMissionType("Nhiệm vụ hằng ngày");
+      setMissionList(dail);
+      const monthIn = await AsyncStorage.getItem('@MonthMission')
+      const month = JSON.parse(monthIn);
+      setMonthmission(month);
+    } catch (e) {    
+    }
+  }
+
   return (
     <View style={styles.container}>
       <StatusBar translucent={false} />
@@ -28,7 +55,7 @@ export default function MissionsScreen() {
         onPress={() => [
           setDaily(!daily),
           setMissionType(daily ? "Nhiệm vụ tháng" : "Nhiệm vụ hằng ngày"),
-          setMissionList(daily ? monthMission : dailyMission)
+          setMissionList(daily ? monthmission : dailymission)
         ]}
       >
         <View style={styles.headercontent}>

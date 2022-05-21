@@ -12,6 +12,8 @@ import { async } from '@firebase/util';
 import { useState, useEffect } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import { useIsFocused } from '@react-navigation/native';
+
+
   // var dataList;
   // getDetailList();
   // async function getDetailList() {

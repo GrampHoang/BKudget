@@ -9,14 +9,14 @@ export let monthMission = [
     {
         id: 1,
         content: "Tiết kiệm",
-        finished: true,
+        finished: false,
         description: "ASdasdjasdlkjasdjasldjsakldjalssdjlaskd",
         point: 5,
     },
     {
         id: 2,
         content: "Không bỏ lỡ",
-        finished: true,
+        finished: false,
         description: "ASdasdjasdlkjasdjasldjsakldjalssdjlaskd",
         point: 5,
     },
@@ -30,14 +30,14 @@ export let monthMission = [
     {
         id: 4,
         content: "Kiểm tra thu chi",
-        finished: true,
+        finished: false,
         description: "ASdasdjasdlkjasdjasldjsakldjalssdjlaskd",
         point: 5,
     },
     {
         id: 5,
         content: "Chưa nghĩ ra",
-        finished: true,
+        finished: false,
         description: "ASdasdjasdlkjasdjasldjsakldjalssdjlaskd",
         point: 5,
     }

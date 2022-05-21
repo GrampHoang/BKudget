@@ -3,6 +3,7 @@ import { userInformation } from '../../data/userInfo'
 import { collection, getDocs } from 'firebase/firestore/lite';
 import { db } from '../../firebase.js';
 import { async } from '@firebase/util';
+import { completeDailyMission } from "../../data/localmission";
 
 export default function Profile(props) {
     var img = '../../assets/user.jpg';
@@ -15,24 +16,26 @@ export default function Profile(props) {
         console.log(userlist);
       }
     
-    const createTwoButtonAlert = () =>
-    Alert.alert(
-      "Alert Title",
-      "My Alert Msg",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
-        },
-        { text: "OK", onPress: () => console.log("OK Pressed") }
-      ]
-    );
+    const createTwoButtonAlert = () => {
+        
+        Alert.alert(
+            "Alert Title",
+            "My Alert Msg",
+            [
+                {
+                    text: "Cancel",
+                    onPress: () => console.log("Cancel Pressed"),
+                    style: "cancel"
+                },
+                { text: "OK", onPress: () => console.log("OK Pressed") }
+            ]
+        );
+    }
 
     return (
         <>
             <View style={styles.container}>
-            <TouchableOpacity onPress={createTwoButtonAlert}>
+            <TouchableOpacity onPress={()=>{}}>
                     <Image source={require(img)} style={styles.image} />
             </TouchableOpacity>
             <Text style={styles.userName}>{userData.name}</Text>
