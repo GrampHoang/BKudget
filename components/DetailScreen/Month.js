@@ -2,6 +2,8 @@ import { StyleSheet, Text, View, Image } from 'react-native';
 import { Button } from 'react-native';
 import { getExpenseList } from '../../data/financeData';
 import { storeExpenseListData } from '../../data/financeData';
+
+
 export default function Month() {
     return (
         <>
@@ -24,6 +26,7 @@ export default function Month() {
                 <Text style={styles.moneyminus}>-100.000</Text>
             </View>
         </View>
+        <Button title='test'/>
         </>
     )
 }

@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
 
-export default function Date(props) {
+export default function Day(props) {
     var moneystyle = props.money[0] == '+' ? styles.moneyplus : styles.moneyminus;
     if (props.past == 0) {
         var date = "Hôm nay";

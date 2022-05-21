@@ -38,7 +38,6 @@ export async function storeExpenseListData(des, amount, ID) {
     {
       expenseList.push(newExpense)
     }
-    console.log(expenseList)
     const jsonValueOut = JSON.stringify(expenseList)
     await AsyncStorage.setItem('@Expense_list', jsonValueOut)
     
