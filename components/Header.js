@@ -2,18 +2,22 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 
 export default function Header() {
+  //const [balance, setBalance] = useState('0');
+
   return (
     <View style={styles.container}>
-      <Text style={styles.text}> 9,000,000 VND </Text>
+      <Text style={styles.text}> 0 </Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
     container: {
-        height: 60,
-        paddingTop: 15,
+        height: 55,
+        paddingTop: 10,
         backgroundColor: '#4FC462',
+        borderBottomColor: 'black',
+        borderBottomWidth: 1,
     },
     text:{
         color: '#FFFFFF',

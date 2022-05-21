@@ -10,7 +10,6 @@ import Detail from '../components/DetailScreen/Detail.js';
 export default function DetailScreen() {
   return (
     <View style={styles.container}>
-        <Header/>
         <Month/>
         <ScrollView>
         <Date money="-500.000" past="0" date="12"/>

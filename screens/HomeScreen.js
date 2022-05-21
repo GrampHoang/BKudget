@@ -8,21 +8,18 @@ import styles from '../components/HomeScreen/style.js';
 
 import {categoriesData} from '../data/category.js';
 import { COLORS } from '../constants/themes.js';
-import {totalExpense, saveFinanceInit, storeExpenseData, storeExpenseListData} from '../data/financeData.js';
+import {saveFinanceInit, storeExpenseData, storeExpenseListData} from '../data/financeData.js';
 import {format} from '../components/Utils/moneyFormat.js';
 
 //
 
-
 const HomeScreen = ({navigation}) => {
-
   const [categories, setCategories] = useState(categoriesData)
   const [modalVisible, setModalVisible] = useState(false);
   const [goalVisible, setGoalVisible] = useState(false);
   const [goal, setGoal] = useState('0');
   const [balance, setBalance] = useState('0');
   const [categoryID, setCategoryID] = useState(0);
-  const [total, setTotal] = useState(totalExpense())
 
   useEffect(() => {
     firstInit()
@@ -30,6 +27,10 @@ const HomeScreen = ({navigation}) => {
     getCategoryData()
   }, []);
 
+  function totalExpense() {
+    return -categories.slice(0,-1).reduce((a, b) => a + b.expense, 0) + categories.slice(-1)[0].expense;
+  }
+  
   async function getCategoryData() {
     try {
       const jsonValue = await AsyncStorage.getItem('@Expense_data')
@@ -48,12 +49,12 @@ const HomeScreen = ({navigation}) => {
       if(b !== null && g !== null) {
         setBalance(b)
         setGoal(g)
+        //console.log(userBalance)
       }
     } catch(e) {
       // error reading value
     }
   }
-
   async function firstInit() {
     try {
       const firstLaunched = await AsyncStorage.getItem('@FirstUse');
@@ -177,7 +178,6 @@ const HomeScreen = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-        <Header/>
         <Modal
           animationType="slide"
           transparent={true}
@@ -213,7 +213,7 @@ const HomeScreen = ({navigation}) => {
             </View>
           </View>
         </Modal>
-        <Text style={styles.header}> {total} / {goal}</Text>
+        <Text style={styles.header}> {totalExpense()} / {goal}</Text>
         <View style= {{flex: 1}}>
           {renderChart()}
         </View>
@@ -257,7 +257,6 @@ const HomeScreen = ({navigation}) => {
     </View>
   )
 }
-
 export default HomeScreen;
 
 

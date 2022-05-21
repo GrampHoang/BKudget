@@ -23,7 +23,6 @@ export default function MissionsScreen() {
   return (
     <View style={styles.container}>
       <StatusBar translucent={false} />
-      <Header />
       {/* Change to another mission page when press */}
       <TouchableOpacity
         onPress={() => [

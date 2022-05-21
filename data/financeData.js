@@ -48,11 +48,6 @@ export async function storeExpenseListData(des, amount, ID) {
 }  
 
 
-
-export function totalExpense() {
-    return -categoriesData.slice(0,-1).reduce((a, b) => a + b.expense, 0) + categoriesData.slice(-1)[0].expense;
-}
-
 export async function saveFinanceInit(balance, goal) {
     try {
       await AsyncStorage.setItem('@Balance', balance)
