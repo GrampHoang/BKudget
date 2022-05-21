@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import {SafeAreaView,StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import Footer from './components/Footer.js';
 import OnboardingScreen from './screens/OnboardingScreen.js';
@@ -20,7 +20,10 @@ const Home = () => {
 )
 }
 
+
+
 export default function App({navigation}) {
+  
   return (
     <NavigationContainer>
       <Stack.Navigator 
@@ -33,7 +36,7 @@ export default function App({navigation}) {
 
       </Stack.Navigator>
     </NavigationContainer>
-  );
+  )
 }
 
 const styles = StyleSheet.create({

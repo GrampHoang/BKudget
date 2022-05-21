@@ -5,6 +5,7 @@ import {
   View,
   ScrollView,
   TouchableOpacity,
+  Image
 } from "react-native";
 import { dailyMission } from "../data/missionDaily";
 import { monthMission } from "../data/missionMonth";
@@ -32,14 +33,18 @@ export default function MissionsScreen() {
         ]}
       >
         <View style={styles.headercontent}>
-          <Text style={styles.missionHeader}> &#60; {missionType} &#62;</Text>
+          <Image source={require('../assets/left-arrow.png')} style={styles.leftimage}/>
+          <Text style={styles.missionHeader}>{missionType}</Text>
+          <Image source={require('../assets/right-arrow.png')} style={styles.rightimage} />
         </View>
       </TouchableOpacity>
       <ScrollView>
         {missionList.map((mission) => 
     <Mission key={mission.id} finished={mission.finished}
     content={mission.content}
-    description={mission.description}/>
+            description={mission.description}
+          point={mission.point}
+          />
   )}
       </ScrollView>
     </View>
@@ -59,13 +64,20 @@ const styles = StyleSheet.create({
   headercontent: {
     borderBottomWidth: 1,
     borderBottomColor: "black",
-    paddingBottom: 8,
+    padding: 8,
     margin: 0,
+    flexDirection: 'row',
+
   },
   missionHeader: {
-    alignSelf: "center",
+    marginLeft: "auto",
     fontSize: 28,
-
-    // fontWeight: '900',
   },
+  leftimage: {
+
+  },
+  rightimage: {
+    marginLeft: 'auto',
+
+  }
 });

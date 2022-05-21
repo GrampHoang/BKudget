@@ -1,5 +1,7 @@
 import { StyleSheet, Text, View, Image } from 'react-native';
-
+import { Button } from 'react-native';
+import { getExpenseList } from '../../data/financeData';
+import { storeExpenseListData } from '../../data/financeData';
 export default function Month() {
     return (
         <>
@@ -29,7 +31,7 @@ export default function Month() {
 const styles = StyleSheet.create({
     container: {
         height: 50,
-        backgroundColor: '#4FC462',
+        backgroundColor: '#45CB85',
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'center',

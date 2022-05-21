@@ -1,18 +1,43 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, Alert, TouchableOpacity } from 'react-native';
 import { userInformation } from '../../data/userInfo'
 
 export default function Profile(props) {
     var img = '../../assets/user.jpg';
     let userData = userInformation[props.id];
+
+    const createTwoButtonAlert = () =>
+    Alert.alert(
+      "Alert Title",
+      "My Alert Msg",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ]
+    );
+
     return (
         <>
-        <View style={styles.container}>
-            <Image source={require(img)} style={styles.image} />
+            <View style={styles.container}>
+            <TouchableOpacity onPress={createTwoButtonAlert}>
+                    <Image source={require(img)} style={styles.image} />
+            </TouchableOpacity>
             <Text style={styles.userName}>{userData.name}</Text>
-                
-            <Text style={styles.achievement}>Điểm: {userData.point} pt</Text>
-            <Text style={styles.achievement}>Chuỗi đăng nhập: <Text style={styles.inlineAchie}>{userData.loginStreak} ngày</Text></Text>
-            <Text style={styles.achievement}>Nhiệm vụ hoàn thành: <Text style={styles.inlineAchie}>{userData.missionComplete}</Text></Text>
+            <View style={styles.achievement}>
+                <Text style={styles.TitleAch}>Điểm:</Text>
+                <Text style={styles.contentAch}>{userData.point} pt</Text>
+            </View>
+            <View style={styles.achievement}>
+                <Text style={styles.TitleAch}>Chuỗi đăng nhập: </Text>
+                <Text style={styles.contentAch}>{userData.loginStreak} ngày</Text>
+            </View>
+            <View style={styles.achievement}>
+                <Text style={styles.TitleAch}>Nhiệm vụ hoàn thành: </Text>
+                <Text style={styles.contentAch}>{userData.missionComplete}</Text>
+            </View>
         </View>
         </>
     );
@@ -44,11 +69,20 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginLeft: 10,
         marginRight: 10,
-        fontSize: 25,
         borderWidth: 0.5,
-        borderColor: 'black',
         borderRadius: 5,
+        flexDirection: "row",
+        
     },
-    inlineAchie: {
+    TitleAch: {
+        fontSize: 25,
+        borderColor: 'black',
+
+    },
+    contentAch: {
+        fontSize: 25,
+        borderColor: 'black',
+        textAlign: 'right',
+        marginLeft: 'auto'
     }
 });
