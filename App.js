@@ -9,25 +9,23 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from './screens/Login.js';
 import RegisterScreen from './screens/Register.js';
 
+
 const Stack = createNativeStackNavigator();
 
-const Stack2 = createNativeStackNavigator();
+
 const Home = () => {
   return(
     <NavigationContainer independent={true} screenOptions={{headerShown: false}}>
       <Footer/>
     </NavigationContainer>
-)
+  )
 }
 
-
-
-export default function App({navigation}) {
-  
-  return (
+const App = ({navigation}) => {
+  return(
     <NavigationContainer>
       <Stack.Navigator 
-        initialRouteName="Onboarding" screenOptions={{headerShown: false}}
+        initialRouteName="Login" screenOptions={{headerShown: false}}
       >
           <Stack.Screen name="Onboarding" component={OnboardingScreen}/>
           <Stack.Screen name="Login" component={LoginScreen} />
@@ -39,11 +37,8 @@ export default function App({navigation}) {
   )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
+
+
+
+export default App;

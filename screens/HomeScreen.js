@@ -164,11 +164,14 @@ const HomeScreen = ({navigation}) => {
   const handleAddExpense = () => {
     if (amount > 0 || des != '')
     {
+      console.log(amount)
       let updateCategories = [...categories];
       updateCategories[categoryID].expense += amount;
       setCategories(updateCategories)
       storeExpenseData(categories.map(item => {return item.expense}))
       storeExpenseListData(des, amount, categoryID)
+      setAmount(0)
+      setDes('')
     }
   }
 

@@ -1,10 +1,20 @@
-import { StyleSheet, Text, View, Image, Alert, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, Alert, TouchableOpacity, Button } from 'react-native';
 import { userInformation } from '../../data/userInfo'
+import { collection, getDocs } from 'firebase/firestore/lite';
+import { db } from '../../firebase.js';
+import { async } from '@firebase/util';
 
 export default function Profile(props) {
     var img = '../../assets/user.jpg';
     let userData = userInformation[props.id];
 
+    const getData = async () => {
+        const userCol = collection(db, 'user');
+        const user = await getDocs(userCol);
+        const userlist = user.docs.map(doc => doc.data());
+        console.log(userlist);
+      }
+    
     const createTwoButtonAlert = () =>
     Alert.alert(
       "Alert Title",
@@ -37,6 +47,9 @@ export default function Profile(props) {
             <View style={styles.achievement}>
                 <Text style={styles.TitleAch}>Nhiệm vụ hoàn thành: </Text>
                 <Text style={styles.contentAch}>{userData.missionComplete}</Text>
+            </View>
+            <View>
+                <Button title='Getdata'  onPress={getData}/>
             </View>
         </View>
         </>

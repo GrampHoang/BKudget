@@ -12,5 +12,5 @@ export let userInformation = [
         loginStreak: 18,
         missionComplete: 246,
         point: 98
-    }
+    },
 ];

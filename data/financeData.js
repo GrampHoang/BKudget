@@ -23,18 +23,24 @@ export async function storeExpenseListData(des, amount, ID) {
       name: categoriesData[ID].name,
       Date: new Date().getDate(),
       month: new Date().getMonth() + 1,
+      year: new Date().getFullYear(),
       expense: amount
     }
 
-    let expenseList = await AsyncStorage.getItem('@Expense_list')
+    const jsonValueIn = await AsyncStorage.getItem('@Expense_list')
+    let expenseList = jsonValueIn != null ? JSON.parse(jsonValueIn) : null;
+    
     if (expenseList === null)
     {
       expenseList = [newExpense]
-      
     }
-    else expenseList.push(newExpense)
-    const jsonValue = JSON.stringify(expenseList)
-    await AsyncStorage.setItem('@Expense_list', jsonValue)
+    else 
+    {
+      expenseList.push(newExpense)
+    }
+    console.log(expenseList)
+    const jsonValueOut = JSON.stringify(expenseList)
+    await AsyncStorage.setItem('@Expense_list', jsonValueOut)
     
   } catch (e) {
     // saving error
