@@ -1,12 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 
-export default function Header() {
+export default function Header({value}) {
   //const [balance, setBalance] = useState('0');
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}> 0 </Text>
+      <Text style={styles.text}> {value} </Text>
     </View>
   );
 };
