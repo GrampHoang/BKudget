@@ -11,7 +11,6 @@ export default function DetailScreen() {
   return (
     <View style={styles.container}>
       <StatusBar translucent={false}/>
-        <Header/>
       <Profile id="0"/>
     </View>
   );

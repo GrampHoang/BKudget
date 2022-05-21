@@ -1,67 +1,48 @@
 import { StyleSheet, Text, View, FlatList, TouchableOpacity, Image, Modal, Pressable, TextInput} from 'react-native';
-import Header from '../components/Header.js';
 import React, {useState, useEffect} from 'react';
 import { VictoryPie, VictoryLabel } from 'victory-native';
 import {Svg} from 'react-native-svg';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from '../components/HomeScreen/style.js';
-
 import {categoriesData} from '../data/category.js';
 import { COLORS } from '../constants/themes.js';
-import {totalExpense, saveFinanceInit, storeExpenseData, storeExpenseListData} from '../data/financeData.js';
+import { storeExpenseData, storeExpenseListData} from '../data/financeData.js';
 import {format} from '../components/Utils/moneyFormat.js';
 
 //
 
-
 const HomeScreen = ({navigation}) => {
-
   const [categories, setCategories] = useState(categoriesData)
   const [modalVisible, setModalVisible] = useState(false);
-  const [goalVisible, setGoalVisible] = useState(false);
-  const [goal, setGoal] = useState('0');
-  const [balance, setBalance] = useState('0');
   const [categoryID, setCategoryID] = useState(0);
-  const [total, setTotal] = useState(totalExpense())
+  const [goal, setGoal] = useState('0');
 
   useEffect(() => {
-    firstInit()
-    getInitData()
     getCategoryData()
+    getInitData()
   }, []);
 
+  async function getInitData() {
+    try {
+      const g = await AsyncStorage.getItem('@Goal')
+      if(g !== null) {
+        setGoal(g)
+      }
+    } catch(e) {
+      // error reading value
+    }
+}
+
+  function totalExpense() {
+    return -categories.slice(0,-1).reduce((a, b) => a + b.expense, 0) + categories.slice(-1)[0].expense;
+  }
+  
   async function getCategoryData() {
     try {
       const jsonValue = await AsyncStorage.getItem('@Expense_data')
       const expenses =  jsonValue != null ? JSON.parse(jsonValue) : null;
       let passExpense = categories.map(item => {return {...item, expense: expenses[item.id]}})
       setCategories(passExpense)
-    } catch(e) {
-      // error reading value
-    }
-  }
-
-  async function getInitData() {
-    try {
-      const b = await AsyncStorage.getItem('@Balance')
-      const g = await AsyncStorage.getItem('@Goal')
-      if(b !== null && g !== null) {
-        setBalance(b)
-        setGoal(g)
-      }
-    } catch(e) {
-      // error reading value
-    }
-  }
-
-  async function firstInit() {
-    try {
-      const firstLaunched = await AsyncStorage.getItem('@FirstUse');
-      if(firstLaunched === null || firstLaunched !== 'false') {
-        AsyncStorage.setItem('@FirstUse', 'false');
-        setGoalVisible(true)
-        storeExpenseData([0,0,0,0,0,0])
-      }
     } catch(e) {
       // error reading value
     }
@@ -177,43 +158,7 @@ const HomeScreen = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-        <Header/>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={goalVisible}
-          onRequestClose={() => {
-            setGoalVisible(!goalVisible);
-          }}
-        >
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <Text style={styles.modalTitle}>Thông tin tài chính của bạn</Text>
-              <TextInput
-                placeholder="Số dư tài khoản"
-                style = {styles.input}
-                keyboardType = "numeric"
-                onChangeText={newText => setBalance(format(newText))}
-              />
-              <TextInput
-                placeholder="Mục tiêu tài chính"
-                style = {styles.input}
-                keyboardType = "numeric"
-                onChangeText={newText => setGoal(format(newText))}
-              />
-              <Pressable
-                style={styles.inputButton}
-                onPress={() => {
-                  saveFinanceInit(balance, goal)
-                  setGoalVisible(!goalVisible)
-                }}
-              >
-                <Text style={styles.buttontextStyle}>OK</Text>
-              </Pressable>
-            </View>
-          </View>
-        </Modal>
-        <Text style={styles.header}> {total} / {goal}</Text>
+        <Text style={styles.header}> {format(totalExpense())} / {goal}</Text>
         <View style= {{flex: 1}}>
           {renderChart()}
         </View>
@@ -257,7 +202,6 @@ const HomeScreen = ({navigation}) => {
     </View>
   )
 }
-
 export default HomeScreen;
 
 

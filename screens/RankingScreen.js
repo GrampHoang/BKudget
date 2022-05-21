@@ -9,7 +9,6 @@ export default function RankingScreen() {
   return (
     <View style={styles.container}>
       <StatusBar translucent={false}/>
-        <Header/>
         <Text style={styles.header}>Bảng xếp hạng</Text>
         <ScrollView>
           <User point="212" day="23"/>

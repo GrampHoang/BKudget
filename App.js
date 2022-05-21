@@ -1,9 +1,6 @@
-import { StatusBar } from 'expo-status-bar';
-import {SafeAreaView,StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import Footer from './components/Footer.js';
 import OnboardingScreen from './screens/OnboardingScreen.js';
-import HomeScreen from './screens/HomeScreen.js';
+import Home from './screens/Main.js';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from './screens/Login.js';
@@ -11,15 +8,6 @@ import RegisterScreen from './screens/Register.js';
 
 
 const Stack = createNativeStackNavigator();
-
-
-const Home = () => {
-  return(
-    <NavigationContainer independent={true} screenOptions={{headerShown: false}}>
-      <Footer/>
-    </NavigationContainer>
-  )
-}
 
 const App = ({navigation}) => {
   return(
@@ -36,9 +24,5 @@ const App = ({navigation}) => {
     </NavigationContainer>
   )
 }
-
-
-
-
 
 export default App;

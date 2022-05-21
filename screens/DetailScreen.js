@@ -158,7 +158,6 @@ import { useIsFocused } from '@react-navigation/native';
   var datelist = getDateList();
   return (
     <View style={styles.container}>
-        <Header/>
         <Month/>
         {
          dataList == null ? <Text>Không có dữ liệu</Text> :<FlatList 
