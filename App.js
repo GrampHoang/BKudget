@@ -5,6 +5,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from './screens/Login.js';
 import RegisterScreen from './screens/Register.js';
+import { LogBox } from 'react-native';
+
+LogBox.ignoreLogs(['Require cycle:'])
+LogBox.ignoreLogs(['Setting a timer']);
 
 
 const Stack = createNativeStackNavigator();

@@ -4,8 +4,19 @@ import { collection, getDocs } from 'firebase/firestore/lite';
 import { db } from '../../firebase.js';
 import { async } from '@firebase/util';
 import { completeDailyMission } from "../../data/localmission";
+import { setDoc, doc } from 'firebase/firestore';
+import { authenthication } from '../../firebase.js';
+import { signOut, onAuthStateChanged } from 'firebase/auth';
 
-export default function Profile(props) {
+const postData = async () => {
+    await setDoc(doc(db, "user", "user"), {
+        employment: "plumber",
+        outfitColor: "red",
+        specialAttack: "fireball"
+      });
+}
+
+export default function Profile(props, {navigation}) {
     var img = '../../assets/user.jpg';
     let userData = userInformation[props.id];
 
@@ -13,6 +24,7 @@ export default function Profile(props) {
         const userCol = collection(db, 'user');
         const user = await getDocs(userCol);
         const userlist = user.docs.map(doc => doc.data());
+        // const userdata = collection(firestore,'user').getdocs('user');
         console.log(userlist);
       }
     
@@ -51,15 +63,24 @@ export default function Profile(props) {
                 <Text style={styles.TitleAch}>Nhiệm vụ hoàn thành: </Text>
                 <Text style={styles.contentAch}>{userData.missionComplete}</Text>
             </View>
-            <View>
+            <View style={styles.buttons}>
                 <Button title='Getdata'  onPress={getData}/>
             </View>
+
+
+            <View style={styles.buttons}>
+                <Button title='PostData'  onPress={postData}/>
+            </View>
+
         </View>
         </>
     );
 }
 
 const styles = StyleSheet.create({
+    buttons:{
+        margin: 10,
+    },
     container:{
         flexDirection: 'column',
         paddingTop: 20,

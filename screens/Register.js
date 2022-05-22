@@ -1,11 +1,13 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity, Pressable } from "react-native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Dimensions } from "react-native";
 import { authenthication } from '../firebase.js';
 import ErrorMessage from '../components/ErrorMessage.js';
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { userCredentials, createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import onAuthStateChanged from "firebase/auth"
+
 
 var pwidth = Dimensions.get('window').width; //full width
 //var height = Dimensions.get('window').heigh t; //full height
@@ -42,15 +44,45 @@ export default function RegisterScreen({navigation}) {
   const [loginError, setLoginError] = useState('');
   const { passwordVisibility, rightIcon, handlePasswordVisibility } = useTogglePasswordVisibility();
 
+  useEffect(() => {
+    const unsub = onAuthStateChanged(user => {
+      if (user){
+        navigation.navigate("Home")
+      }
+    })
+    return unsub
+  }, [])
+
+
   const RegUser = async () => {
     try{
       if (email !== '' && password !== '') {
-      await createUserWithEmailAndPassword(authenthication, email, password);
-      navigation.navigate("Home");
+        await createUserWithEmailAndPassword(authenthication, email, password);
+        await signInWithEmailAndPassword(authenthication, email, password);
+        onAuthStateChanged(authenthication, (user) => {
+          if (user) {
+            console.log('Loggin in as:',user.email)
+            navigation.navigate("Home");
+          }
+       });
       }
     }
       catch (error) {
-        setLoginError("Email hoặc mật khẩu không hợp lệ. Mật khấu phải ít nhất 6 kí tự");
+        if (error.code === 'auth/email-already-in-use') {
+          setLoginError('Email đã có tài khoản!');
+        }
+    
+        else if (error.code === 'auth/invalid-email') {
+          setLoginError('Email không hợp lệ!');
+        }
+        else if (error.code === 'auth/weak-password') {
+          setLoginError('Mật khấu phải ít nhất 6 kí tự!');
+        }
+        else {
+          setLoginError("Lỗi! Hãy xem lại");
+        }
+        //console.error(error);
+        
     }
   }
 

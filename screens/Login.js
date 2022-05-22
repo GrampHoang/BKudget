@@ -6,7 +6,7 @@ import { authenthication } from '../firebase.js';
 import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
 import ErrorMessage from '../components/ErrorMessage.js';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-
+import { onAuthStateChanged } from "firebase/auth";
 
 import { Dimensions } from "react-native";
 var pwidth = Dimensions.get('window').width; //full width
@@ -45,7 +45,12 @@ export default function LoginScreen({navigation}) {
     try {
       if (email !== '' && password !== '') {
         await signInWithEmailAndPassword(authenthication, email, password);
-        navigation.navigate("Home");
+        onAuthStateChanged(authenthication, (user) => {
+          if (user) {
+            console.log('Loggin in as:',user.email)
+            navigation.navigate("Home");
+          }
+       });
       }
     } catch (error) {
       setLoginError("Email hoặc mật khẩu chưa chính xác");
@@ -77,7 +82,6 @@ export default function LoginScreen({navigation}) {
           autoCapitalize='none'
           placeholder="Mật khẩu."
           placeholderTextColor="#808080"
-          autoFocus={true}
           secureTextEntry={passwordVisibility}
           onChangeText={password => setPassword(password)}
           handlePasswordVisibility={handlePasswordVisibility}
