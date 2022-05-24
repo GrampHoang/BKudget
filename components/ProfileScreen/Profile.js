@@ -1,33 +1,47 @@
 import { StyleSheet, Text, View, Image, Alert, TouchableOpacity, Button } from 'react-native';
 import { userInformation } from '../../data/userInfo'
-import { collection, getDocs } from 'firebase/firestore/lite';
 import { db } from '../../firebase.js';
+import { collection, getDocs, setDoc, doc, getDocFromCache } from 'firebase/firestore/';
 import { async } from '@firebase/util';
 import { completeDailyMission } from "../../data/localmission";
-import { setDoc, doc } from 'firebase/firestore';
 import { authenthication } from '../../firebase.js';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const postData = async () => {
-    await setDoc(doc(db, "user", "user"), {
-        employment: "plumber",
-        outfitColor: "red",
-        specialAttack: "fireball"
+    const user = await AsyncStorage.getItem('@user');
+    await setDoc(doc(db, "user", user), {
+        point: 69,
+        loginStreak: 42,
+        missions: 100,
       });
+      await setDoc(doc(db, "user", user, "spendlist", "spend1"), {
+        date: 123456,
+        id: 1,
+        money: 100,
+        desciption: "",
+      });
+}
+
+const getData = async () => {
+    const user = await AsyncStorage.getItem('@user');
+    const querySnapshot = await getDocs(collection(db, "user"));
+    querySnapshot.forEach((doc) => {
+    console.log("list all users:")
+    console.log(`${doc.id} => ${doc.data()}`);
+    });
+
+    const curUser = doc(db, "user", user);
+    //const curDoc = await getDocFromCache(curUser);
+    console.log("list all users:")
+    console.log(curUser.data());
 }
 
 export default function Profile(props, {navigation}) {
     var img = '../../assets/user.jpg';
     let userData = userInformation[props.id];
 
-    const getData = async () => {
-        const userCol = collection(db, 'user');
-        const user = await getDocs(userCol);
-        const userlist = user.docs.map(doc => doc.data());
-        // const userdata = collection(firestore,'user').getdocs('user');
-        console.log(userlist);
-      }
-    
     const createTwoButtonAlert = () => {
         
         Alert.alert(

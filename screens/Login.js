@@ -7,6 +7,8 @@ import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
 import ErrorMessage from '../components/ErrorMessage.js';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { onAuthStateChanged } from "firebase/auth";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Crypto from 'expo-crypto';
 
 import { Dimensions } from "react-native";
 var pwidth = Dimensions.get('window').width; //full width
@@ -41,6 +43,15 @@ export default function LoginScreen({navigation}) {
   const [loginError, setLoginError] = useState('');
   const { passwordVisibility, rightIcon, handlePasswordVisibility } = useTogglePasswordVisibility();
 
+  const hash = async (uid) => {
+    const digest = await Crypto.digestStringAsync(
+      Crypto.CryptoDigestAlgorithm.SHA512,
+      uid
+    );
+
+    return digest
+  }
+
   const onLogin = async () => {
     try {
       if (email !== '' && password !== '') {
@@ -48,6 +59,7 @@ export default function LoginScreen({navigation}) {
         onAuthStateChanged(authenthication, (user) => {
           if (user) {
             console.log('Loggin in as:',user.email)
+            AsyncStorage.setItem('@user', user.email);
             navigation.navigate("Home");
           }
        });

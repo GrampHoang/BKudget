@@ -7,7 +7,7 @@ import {saveFinanceInit,storeExpenseData} from '../data/financeData.js';
 import styles from '../components/HomeScreen/style.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Home = () => {
+const Home = ({navigation}) => {
     const [goalVisible, setGoalVisible] = useState(false);
     const [goal, setGoal] = useState('0');
     const [balance, setBalance] = useState('0');

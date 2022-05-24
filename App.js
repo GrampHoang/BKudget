@@ -7,13 +7,35 @@ import LoginScreen from './screens/Login.js';
 import RegisterScreen from './screens/Register.js';
 import { LogBox } from 'react-native';
 
-LogBox.ignoreLogs(['Require cycle:'])
-LogBox.ignoreLogs(['Setting a timer']);
-
-
 const Stack = createNativeStackNavigator();
 
+const AuthStack = ({navigation}) => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator 
+        initialRouteName="Login" screenOptions={{headerShown: false}}
+      >
+      <Stack.Screen name="Onboarding" component={OnboardingScreen}/>
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Register" component={RegisterScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+const UserStack = ({navigation}) =>  {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={Home} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
 const App = ({navigation}) => {
+  LogBox.ignoreLogs(['Require cycle:'])
+  LogBox.ignoreLogs(['Setting a timer']);
   return(
     <NavigationContainer>
       <Stack.Navigator 

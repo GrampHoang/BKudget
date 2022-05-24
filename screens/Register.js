@@ -7,6 +7,7 @@ import { authenthication } from '../firebase.js';
 import ErrorMessage from '../components/ErrorMessage.js';
 import { userCredentials, createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import onAuthStateChanged from "firebase/auth"
+import { db } from '../firebase.js';
 
 
 var pwidth = Dimensions.get('window').width; //full width
@@ -61,8 +62,20 @@ export default function RegisterScreen({navigation}) {
         await signInWithEmailAndPassword(authenthication, email, password);
         onAuthStateChanged(authenthication, (user) => {
           if (user) {
-            console.log('Loggin in as:',user.email)
-            navigation.navigate("Home");
+            console.log('Loggin in as:',user.email);
+            AsyncStorage.setItem('@user', user.email);
+            setDoc(doc(db, "user", user), {
+              point: 0,
+              loginStreak: 0,
+              missions: 0,
+            });
+            setDoc(doc(db, "user", user, "spendlist", "spend1"), {
+              date: 0,
+              id: 0,
+              money: 0,
+              desciption: "",
+            });
+            navigation.navigate("Home", user);
           }
        });
       }
