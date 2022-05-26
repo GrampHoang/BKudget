@@ -60,7 +60,6 @@ export default function LoginScreen({navigation}) {
           if (user) {
             console.log('Loggin in as:',user.email)
             AsyncStorage.setItem('@user', user.email);
-            navigation.navigate("Home");
           }
        });
       }
