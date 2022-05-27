@@ -2,31 +2,30 @@ import { StyleSheet, Text, View, Image } from 'react-native';
 import { Button } from 'react-native';
 import { getExpenseList } from '../../data/financeData';
 import { storeExpenseListData } from '../../data/financeData';
+import { format } from '../Utils/moneyFormat';
 
-
-export default function Month() {
+export default function Month(props) {
     return (
         <>
         <View style={styles.container}>
-            <View style={styles.arrow}>
+            {/* <View style={styles.arrow}>
                 <Image source={require('../../assets/left-arrow.png')} style={styles.leftArrow}/>
-            </View>
-            <Text style={styles.text}>Tháng 12 Năm 2021</Text>
-            <View style={styles.arrow}>
+            </View> */}
+            <Text style={styles.text}>Lịch sử thu chi</Text>
+            {/* <View style={styles.arrow}>
             <Image source={require('../../assets/right-arrow.png' )} style={styles.rightArrow}/>
-            </View>
+            </View> */}
         </View>
         <View style={styles.revenue}>
             <View style={styles.thu}>
                 <Text style={styles.revenueHeader}>Thu:</Text>
-                <Text style={styles.moneyplus}>+3.000.000</Text>
+                <Text style={styles.moneyplus}>{format(props.thu)}</Text>
             </View>
             <View style={styles.chi}>
                 <Text style={styles.revenueHeader}>Chi:</Text>
-                <Text style={styles.moneyminus}>-100.000</Text>
+                <Text style={styles.moneyminus}>{format(props.chi)}</Text>
             </View>
         </View>
-        <Button title='test'/>
         </>
     )
 }
@@ -42,7 +41,7 @@ const styles = StyleSheet.create({
     },
     text:{
         color: '#FFFFFF',
-        fontSize: 20,
+        fontSize: 30,
         textAlign: 'center',
         flex: 5,
     },

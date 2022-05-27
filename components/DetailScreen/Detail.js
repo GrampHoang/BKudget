@@ -1,23 +1,24 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { Image } from 'react-native';
+import { format } from '../Utils/moneyFormat';
 export default function Detail(props) {
-    var moneystyle = props.money[0] == '+' ? styles.moneyplus : styles.moneyminus;
-    if (props.type == 'food') { 
+    var moneystyle = props.money > 0 ? styles.moneyplus : styles.moneyminus;
+    if (props.type == 'Đồ ăn') { 
         var img = require('../../assets/category/food_icon.png');
     }
-    else if (props.type == 'drink') { 
+    else if (props.type == 'Đồ uống') { 
         var img = require('../../assets/category/drink_icon.png');
     }
-    else if (props.type == 'shop') { 
+    else if (props.type == 'Mua sắm') { 
         var img = require('../../assets/category/shop_icon.png');
     }
-    else if (props.type == 'bill') { 
+    else if (props.type == 'Hóa đơn') { 
         var img = require('../../assets/category/bill_icon.png');
     }
-    else if (props.type == 'other') { 
+    else if (props.type == 'Khác') { 
         var img = require('../../assets/category/other_icon.png');
     }
-    else if (props.type == 'salary') { 
+    else if (props.type == 'Thu nhập') { 
         var img = require('../../assets/category/income_icon.png');
     }
     return (
@@ -29,7 +30,7 @@ export default function Detail(props) {
                 {props.content}
             </Text>
             <Text style={moneystyle}>
-                {props.money}
+                {format(props.money)}
             </Text>
         </View>
     )
