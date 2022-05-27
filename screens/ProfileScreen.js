@@ -5,14 +5,19 @@ import Header from '../components/Header.js';
 import React from 'react';
 import Profile from '../components/ProfileScreen/Profile'
 import { authenthication } from '../firebase.js';
-import { getAuth } from "firebase/auth";
+import { getAuth,signOut } from "firebase/auth";
+
+const logOut = () => {
+  signOut(authenthication)
+.then(() => console.log('User signed out!'));
+}
 
 export default function DetailScreen({navigation}) {
   return (
     <View style={styles.container}>
       <StatusBar translucent={false}/>
       <View style={styles.buttons}>
-                <Button title='SignOut' onPress={() => navigation.navigate("Login")}/>
+                <Button title='SignOut' onPress={logOut}/>
       </View>
       <Profile id="0"/>
       

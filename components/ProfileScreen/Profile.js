@@ -8,6 +8,10 @@ import { authenthication } from '../../firebase.js';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+const logOut = () => {
+    signOut()
+  .then(() => console.log('User signed out!'));
+}
 
 const postData = async () => {
     const user = await AsyncStorage.getItem('@user');
@@ -38,7 +42,7 @@ const getData = async () => {
     console.log(curUser.data());
 }
 
-export default function Profile(props, {navigation}) {
+export default function Profile(props) {
     var img = '../../assets/user.jpg';
     let userData = userInformation[props.id];
 

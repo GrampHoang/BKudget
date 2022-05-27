@@ -45,16 +45,6 @@ export default function RegisterScreen({navigation}) {
   const [loginError, setLoginError] = useState('');
   const { passwordVisibility, rightIcon, handlePasswordVisibility } = useTogglePasswordVisibility();
 
-  useEffect(() => {
-    const unsub = onAuthStateChanged(user => {
-      if (user){
-        navigation.navigate("Home")
-      }
-    })
-    return unsub
-  }, [])
-
-
   const RegUser = async () => {
     try{
       if (email !== '' && password !== '') {
@@ -75,7 +65,6 @@ export default function RegisterScreen({navigation}) {
               money: 0,
               desciption: "",
             });
-            navigation.navigate("Home", user);
           }
        });
       }
