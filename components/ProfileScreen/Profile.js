@@ -1,17 +1,11 @@
 import { StyleSheet, Text, View, Image, Alert, TouchableOpacity, Button } from 'react-native';
 import { userInformation } from '../../data/userInfo'
+import React, {useState, useEffect} from "react";
 import { db } from '../../firebase.js';
-import { collection, getDocs, setDoc, doc, getDocFromCache } from 'firebase/firestore/';
+import { collection, getDocs, getDoc, setDoc, doc } from 'firebase/firestore/';
 import { async } from '@firebase/util';
 import { completeDailyMission } from "../../data/localmission";
-import { authenthication } from '../../firebase.js';
-import { signOut, onAuthStateChanged } from 'firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-const logOut = () => {
-    signOut()
-  .then(() => console.log('User signed out!'));
-}
 
 const postData = async () => {
     const user = await AsyncStorage.getItem('@user');
@@ -27,22 +21,32 @@ const postData = async () => {
         desciption: "",
       });
 }
+    const getData = async () => {
+        
+        const user = await AsyncStorage.getItem('@user');
 
-const getData = async () => {
-    const user = await AsyncStorage.getItem('@user');
-    const querySnapshot = await getDocs(collection(db, "user"));
-    querySnapshot.forEach((doc) => {
-    console.log("list all users:")
-    console.log(`${doc.id} => ${doc.data()}`);
-    });
+        // const ColSnap = collection(db, "user")
+        // const userList = await getDocs(ColSnap);
+        // const data = userList.docs.map((doc) => ({...doc.data(), id: doc.id}));
+        // console.log("Users list:")
+        // console.log(data)
+        
+        const Snap = doc(db, "user", user);
+        const userDat = await getDoc(Snap);  
+        console.log("User Data:", userDat.data());
+        console.log("Curent point",userDat.data().point)
+        console.log("Login Streak",userDat.data().loginStreak)
+        console.log("Missions finished",userDat.data().missions)
 
-    const curUser = doc(db, "user", user);
-    //const curDoc = await getDocFromCache(curUser);
-    console.log("list all users:")
-    console.log(curUser.data());
-}
-
+        const SpendSnap = collection(db, "user", user, "spendlist");
+        const userSpend = await getDocs(SpendSnap);  
+        const spen = userSpend.docs.map((doc) => ({...doc.data(), id: doc.id}));
+        console.log("Users spending list:")
+        console.log(spen)
+        console.log(spen[0].money)
+    }
 export default function Profile(props) {
+    const [datas, setDatas] = useState([]);
     var img = '../../assets/user.jpg';
     let userData = userInformation[props.id];
 

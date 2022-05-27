@@ -8,12 +8,10 @@ import ErrorMessage from '../components/ErrorMessage.js';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { onAuthStateChanged } from "firebase/auth";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import * as Crypto from 'expo-crypto';
 
 import { Dimensions } from "react-native";
 var pwidth = Dimensions.get('window').width; //full width
 //var height = Dimensions.get('window').height; //full height
-
 
 const useTogglePasswordVisibility = () => {
   const [passwordVisibility, setPasswordVisibility] = useState(true);
@@ -43,13 +41,8 @@ export default function LoginScreen({navigation}) {
   const [loginError, setLoginError] = useState('');
   const { passwordVisibility, rightIcon, handlePasswordVisibility } = useTogglePasswordVisibility();
 
-  const hash = async (uid) => {
-    const digest = await Crypto.digestStringAsync(
-      Crypto.CryptoDigestAlgorithm.SHA512,
-      uid
-    );
-
-    return digest
+  const oops = (user) =>{
+    console.log(user.email)
   }
 
   const onLogin = async () => {
@@ -71,7 +64,7 @@ export default function LoginScreen({navigation}) {
 
   return (
     <View style={styles.container}>
-      <Image style={styles.logo} source={require("../assets/favicon.png")} />
+      <Image style={styles.logo} source={require("../assets/App.png")} />
       <StatusBar style="auto" />
       <View>
         {loginError ? <ErrorMessage error={loginError} visible={true} /> : null}
@@ -102,7 +95,7 @@ export default function LoginScreen({navigation}) {
       </Pressable>
       </View>
 
-      <TouchableOpacity>
+      <TouchableOpacity onPress={oops}>
         <Text style={styles.forgot_button}>Quên mật khẩu?</Text>
       </TouchableOpacity>
  
@@ -137,6 +130,7 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
+    // backgroundColor: "#E0FFE0",
     backgroundColor: "#E0FFE0",
     alignItems: "center",
     justifyContent: "center",
@@ -145,8 +139,8 @@ const styles = StyleSheet.create({
   logo: {
     marginTop: 40,
     marginBottom: 40,
-    width: 60,
-    height: 60,
+    width: 88,
+    height: 97,
   },
  
   inputView: {
