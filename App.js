@@ -18,11 +18,12 @@ LogBox.ignoreLogs(['Setting a timer']);
 const AuthStack = ({navigation}) => {
   return (
       <Stack.Navigator 
-        initialRouteName="OnBoarding" screenOptions={{headerShown: false}}
+        initialRouteName="Login" screenOptions={{headerShown: false}}
       >
       <Stack.Screen name="Onboarding" component={OnboardingScreen}/>
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Register" component={RegisterScreen} />
+          <Stack.Screen name="Home" component={Home}/>
       </Stack.Navigator>
   );
 }

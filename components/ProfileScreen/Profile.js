@@ -21,7 +21,7 @@ const postData = async () => {
         desciption: "",
       });
 }
-    const getData = async () => {
+    const getData = async (userData) => {
         
         const user = await AsyncStorage.getItem('@user');
 
@@ -33,23 +33,30 @@ const postData = async () => {
         
         const Snap = doc(db, "user", user);
         const userDat = await getDoc(Snap);  
-        console.log("User Data:", userDat.data());
-        console.log("Curent point",userDat.data().point)
-        console.log("Login Streak",userDat.data().loginStreak)
-        console.log("Missions finished",userDat.data().missions)
+        // console.log("User Data:", userDat.data());
+        // console.log("Curent point",userDat.data().point)
+        // console.log("Login Streak",userDat.data().loginStreak)
+        // console.log("Missions finished",userDat.data().missions)
+        console.log(user)
+        userData.name = userDat.data().name
+        userData.point = userDat.data().point
+        userData.loginStreak = userDat.data().loginStreak
+        userData.missions = userDat.data().missions
 
-        const SpendSnap = collection(db, "user", user, "spendlist");
-        const userSpend = await getDocs(SpendSnap);  
-        const spen = userSpend.docs.map((doc) => ({...doc.data(), id: doc.id}));
-        console.log("Users spending list:")
-        console.log(spen)
-        console.log(spen[0].money)
+        // const SpendSnap = collection(db, "user", user, "spendlist");
+        // const userSpend = await getDocs(SpendSnap);  
+        // const spen = userSpend.docs.map((doc) => ({...doc.data(), id: doc.id}));
+        // console.log("Users spending list:")
+        // console.log(spen)
+        // console.log(spen[0].money)
     }
 export default function Profile(props) {
-    const [datas, setDatas] = useState([]);
-    var img = '../../assets/user.jpg';
-    let userData = userInformation[props.id];
 
+    var img = '../../assets/user.jpg';
+    // let userData = userInformation[props.id];
+    let userData = userInformation[0]
+    getData(userData)
+    console.log(userData)
     const createTwoButtonAlert = () => {
         
         Alert.alert(
@@ -83,7 +90,7 @@ export default function Profile(props) {
             </View>
             <View style={styles.achievement}>
                 <Text style={styles.TitleAch}>Nhiệm vụ hoàn thành: </Text>
-                <Text style={styles.contentAch}>{userData.missionComplete}</Text>
+                <Text style={styles.contentAch}>{userData.missions}</Text>
             </View>
             <View style={styles.buttons}>
                 <Button title='Getdata'  onPress={getData}/>
