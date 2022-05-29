@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, Alert, TouchableOpacity, Button } from 'react-native';
+import { StyleSheet, Text, View, Image, Alert, TouchableOpacity, Button} from 'react-native';
 import { userInformation } from '../../data/userInfo'
 import { db } from '../../firebase.js';
 import { collection, getDocs, setDoc, doc, getDocFromCache } from 'firebase/firestore/';
@@ -7,6 +7,9 @@ import { completeDailyMission } from "../../data/localmission";
 import { authenthication } from '../../firebase.js';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useState, useEffect} from 'react';
+import { useIsFocused } from '@react-navigation/native';
+import { setUserInfo } from '../../data/userInfo';
 
 const logOut = () => {
     signOut()
@@ -43,8 +46,30 @@ const getData = async () => {
 }
 
 export default function Profile(props) {
+    const [userData,setUserData] = useState([]);   
+
+    useEffect(() => { 
+        setUsrData()
+    }, []);
+    const isFocused = useIsFocused();
+    useEffect(() => { 
+      if (!isFocused) {
+        setUsrData()
+      }
+    }, [isFocused]);
+
+    async function setUsrData(){
+        try {
+            const userIfJson = await AsyncStorage.getItem('@LocalUser');
+            const user = JSON.parse(userIfJson);
+            setUserData(user[0]);
+        }catch(e){
+
+        }
+    }
     var img = '../../assets/user.jpg';
-    let userData = userInformation[props.id];
+
+    // let userData = userInformation[props.id];
 
     const createTwoButtonAlert = () => {
         

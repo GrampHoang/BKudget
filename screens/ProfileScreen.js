@@ -6,6 +6,7 @@ import React from 'react';
 import Profile from '../components/ProfileScreen/Profile'
 import { authenthication } from '../firebase.js';
 import { getAuth,signOut } from "firebase/auth";
+import { setUserInfo } from '../data/userInfo.js';
 
 const logOut = () => {
   signOut(authenthication)
@@ -13,6 +14,8 @@ const logOut = () => {
 }
 
 export default function DetailScreen({navigation}) {
+  setUserInfo();
+  
   return (
     <View style={styles.container}>
       <StatusBar translucent={false}/>

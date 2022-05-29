@@ -9,12 +9,13 @@ import {
 } from "react-native";
 import Mission from "../components/MissionScreen/Mission";
 import React, {useState, useEffect} from 'react';
-import { storeMissionData } from "../data/localmission";
+import { storeMissionData, resetDaily, setFirstDay} from "../data/localmission";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from '@react-navigation/native';
 
 export default function MissionsScreen() {
   storeMissionData();
+  setFirstDay();
 
   const [daily, setDaily] = useState(true);
   const [missionList, setMissionList] = useState([]);
@@ -23,7 +24,8 @@ export default function MissionsScreen() {
   const [missionType, setMissionType] = useState("Nhiệm vụ hằng ngày");
   // default mission page content
   useEffect(() => { 
-      getMission()
+      getMission(),
+      resetDaily()
   }, []);
   const isFocused = useIsFocused();
   useEffect(() => { 

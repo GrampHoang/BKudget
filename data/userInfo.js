@@ -1,16 +1,24 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 export let userInformation = [
     {
         id: 0,
         name: "Bạn",
-        loginStreak: 18,
-        missionComplete: 246,
-        point: 98
-    },
-    {
-        id: 1,
-        name: "Võ Minh Trí",
-        loginStreak: 18,
-        missionComplete: 246,
-        point: 98
-    },
+        loginStreak: 1,
+        missionComplete: 0,
+        point: 0
+    }
 ];
+
+export async function setUserInfo(){
+    try{
+        const isSet = await AsyncStorage.getItem('@LocalUser');
+        const test = JSON.parse(isSet);
+        if(test===null){
+            const data = JSON.stringify(userInformation);
+            await AsyncStorage.setItem('@LocalUser',data);
+        }
+    }catch(e){
+
+    }
+}
