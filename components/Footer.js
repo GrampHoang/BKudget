@@ -12,7 +12,7 @@ var pwidth = Dimensions.get('window').width; //full width
 var pHeight = Dimensions.get('window').height;
 const Tab = createBottomTabNavigator();
 
-const Footer = () => {
+const Footer = ({navigation}) => {
   return (
     <Tab.Navigator
       initialRouteName = "Home"
