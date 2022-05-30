@@ -2,15 +2,11 @@ import { StyleSheet, Text, View } from 'react-native';
 
 export default function Day(props) {
     var moneystyle = props.money > 0 ? styles.moneyplus : styles.moneyminus;
-    if (props.past == 0) {
-        var date = "Hôm nay";
+    if (props.month < 10) {
+        var date = props.date + '/0' + props.month + '/' + props.year;
     }
-    else if (props.past == 1) {
-        var date = "Hôm qua";
-    }
-    else {
-        var date = "Ngày " + props.date;
-    }
+    else
+    var date = props.date + '/' + props.month + '/' + props.year;
     return (
         <View style={styles.container}>
             <Text style={styles.date}>{date}</Text>

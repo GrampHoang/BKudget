@@ -12,6 +12,8 @@ import { async } from '@firebase/util';
 import { useState, useEffect } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import { useIsFocused } from '@react-navigation/native';
+import { db } from '../firebase.js';
+import { collection, getDocs, getDoc, setDoc, doc } from 'firebase/firestore/';
 
   export default function DetailScreen() {
     var [dataList,SetdataList] = useState();
@@ -19,18 +21,35 @@ import { useIsFocused } from '@react-navigation/native';
     var chi = getChi();
     useEffect(() => {
       const getData = async () => {
-        const resp = await AsyncStorage.getItem('@Expense_list');
+        const mail = await AsyncStorage.getItem('@user');
+        if (mail != "0") {
+          const SpendSnap = collection(db, "user", mail, "spendlist");
+          const userSpend = await getDocs(SpendSnap);  
+          const spen = userSpend.docs.map((doc) => ({...doc.data(), id: doc.id}));
+          SetdataList(spen);
+        } else
+        {const resp = await AsyncStorage.getItem('@Expense_list');
         const json = JSON.parse(resp);
-        SetdataList(json);
+        SetdataList(json);}
       }
       getData().then();
     }, []);
     const isFocused = useIsFocused();
     useEffect(() => {
       const getData = async () => {
-        const resp = await AsyncStorage.getItem('@Expense_list');
+        // const resp = await AsyncStorage.getItem('@Expense_list');
+        // const json = JSON.parse(resp);
+        // SetdataList(json);
+        const mail = await AsyncStorage.getItem('@user');
+        if (mail != "0") {
+          const SpendSnap = collection(db, "user", mail, "spendlist");
+          const userSpend = await getDocs(SpendSnap);  
+          const spen = userSpend.docs.map((doc) => ({...doc.data(), id: doc.id}));
+          SetdataList(spen);
+        } else
+        {const resp = await AsyncStorage.getItem('@Expense_list');
         const json = JSON.parse(resp);
-        SetdataList(json);
+        SetdataList(json);}
       }
       if (isFocused) {
         getData();
@@ -55,7 +74,7 @@ import { useIsFocused } from '@react-navigation/native';
     for (let i = 1; i < dataList.length; i++) {
       var x = new Date(dataList[i].year, dataList[i].month, dataList[i].Date);
       
-      if (x - temp != 0 /*&& !checkExistDate(x, exist)*/) {
+      if (x - temp != 0 && !checkExistDate(x, exist)) {
         temp = x;
         // arr.push({Date: dataList[i].Date, month: dataList[i].month, year: dataList[i].year});
         // exist.push({Date: dataList[i].Date, month: dataList[i].month, year: dataList[i].year});
@@ -118,8 +137,9 @@ import { useIsFocused } from '@react-navigation/native';
     }
     return chi;
   }
-  function test() {
-    console.log(dataList);
+  async function test() {
+    await AsyncStorage.setItem('@user','123456@gmail.com');
+    
     }
   var datelist = getDateList().reverse();
   
@@ -127,13 +147,15 @@ import { useIsFocused } from '@react-navigation/native';
     <View style={styles.container}>
         <Month thu = {thu} chi = {chi}/>
         {
-         dataList == null ? <Text>Không có dữ liệu</Text> :<FlatList 
+        <FlatList 
         data = {datelist}
-        renderItem = {({item}) =><><Day money={MoneyByDate(item.Date,item.month,item.year)} past="5" date={item.Date}></Day>
+        renderItem = {({item}) =><><Day money={MoneyByDate(item.Date,item.month,item.year)} date={item.Date}
+        month={item.month} year={item.year}></Day>
         <RenderDailyList date={item.Date} month={item.month} year={item.year}/>
         </>
         }>
         </FlatList>}
+        <Button title='abc' onPress={test}/>
     </View>
   );
 }
