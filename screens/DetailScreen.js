@@ -1,16 +1,11 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, ScrollView, Text, View, FlatList } from 'react-native';
-import Footer from '../components/Footer.js';
-import Header from '../components/Header.js';
+import { StyleSheet, View, FlatList } from 'react-native';
 import React from 'react';
 import Month from '../components/DetailScreen/Month.js';
 import Day from '../components/DetailScreen/Date.js';
 import Detail from '../components/DetailScreen/Detail.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Button } from 'react-native';
-import { async } from '@firebase/util';
 import { useState, useEffect } from 'react';
-import { useFocusEffect } from '@react-navigation/native';
 import { useIsFocused } from '@react-navigation/native';
 import { db } from '../firebase.js';
 import { collection, getDocs, getDoc, setDoc, doc } from 'firebase/firestore/';
@@ -139,7 +134,7 @@ import { collection, getDocs, getDoc, setDoc, doc } from 'firebase/firestore/';
   }
   async function test() {
     await AsyncStorage.setItem('@user','123456@gmail.com');
-    
+    //await AsyncStorage.setItem('@user','0');
     }
   var datelist = getDateList().reverse();
   
@@ -149,7 +144,7 @@ import { collection, getDocs, getDoc, setDoc, doc } from 'firebase/firestore/';
         {
         <FlatList 
         data = {datelist}
-        renderItem = {({item}) =><><Day money={MoneyByDate(item.Date,item.month,item.year)} date={item.Date}
+        renderItem = {({item},index) =><><Day key={index} money={MoneyByDate(item.Date,item.month,item.year)} date={item.Date}
         month={item.month} year={item.year}></Day>
         <RenderDailyList date={item.Date} month={item.month} year={item.year}/>
         </>
