@@ -1,7 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button } from 'react-native';
-import Footer from '../components/Footer.js';
-import Header from '../components/Header.js';
+import { StyleSheet, View, Button } from 'react-native';
 import React from 'react';
 import Profile from '../components/ProfileScreen/Profile'
 import { authenthication } from '../firebase.js';
@@ -15,7 +13,7 @@ const logOut = () => {
 
 export default function DetailScreen({navigation}) {
   setUserInfo();
-  
+
   return (
     <View style={styles.container}>
       <StatusBar translucent={false}/>

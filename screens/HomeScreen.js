@@ -17,6 +17,7 @@ const HomeScreen = ({navigation}) => {
   const [categoryID, setCategoryID] = useState(0);
   const [goal, setGoal] = useState('0');
 
+
   useEffect(() => {
     getCategoryData()
     getInitData()

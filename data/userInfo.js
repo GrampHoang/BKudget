@@ -1,9 +1,10 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { pleple } from "./localmission";
 
 export let userInformation = [
     {
         id: 0,
-        name: "Bạn",
+        name: "Khách",
         loginStreak: 1,
         missionComplete: 0,
         point: 0
@@ -21,4 +22,8 @@ export async function setUserInfo(){
     }catch(e){
 
     }
+}
+export async function plep(){
+    const data = JSON.stringify(userInformation);
+            await AsyncStorage.setItem('@LocalUser',data);
 }

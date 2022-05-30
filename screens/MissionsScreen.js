@@ -12,10 +12,13 @@ import React, {useState, useEffect} from 'react';
 import { storeMissionData, resetDaily, setFirstDay} from "../data/localmission";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from '@react-navigation/native';
-
+// import { pleple } from "../data/localmission";
+// import { completeMonthMission } from "../data/localmission";
 export default function MissionsScreen() {
   storeMissionData();
   setFirstDay();
+  // pleple();
+  // completeMonthMission(1);
 
   const [daily, setDaily] = useState(true);
   const [missionList, setMissionList] = useState([]);

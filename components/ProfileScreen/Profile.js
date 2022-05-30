@@ -1,20 +1,21 @@
 import { StyleSheet, Text, View, Image, Alert, TouchableOpacity, Button} from 'react-native';
-import { userInformation } from '../../data/userInfo'
+// import { userInformation } from '../../data/userInfo'
 import React, {useState, useEffect} from "react";
 import { db } from '../../firebase.js';
 import { collection, getDocs, getDoc, setDoc, doc } from 'firebase/firestore/';
-import { async } from '@firebase/util';
-import { completeDailyMission } from "../../data/localmission";
+// import { async } from '@firebase/util';
+// import { completeDailyMission } from "../../data/localmission";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from '@react-navigation/native';
-import { setUserInfo } from '../../data/userInfo';
+// import { setUserInfo } from '../../data/userInfo';
 
 const postData = async () => {
     const user = await AsyncStorage.getItem('@user');
     await setDoc(doc(db, "user", user), {
-        point: 69,
-        loginStreak: 42,
-        missions: 100,
+        point: 22,
+        loginStreak: 33,
+        missions: 55,
+
       });
       await setDoc(doc(db, "user", user, "spendlist", "spend1"), {
         date: 123456,
@@ -35,7 +36,7 @@ const postData = async () => {
         
         const Snap = doc(db, "user", user);
         const userDat = await getDoc(Snap);  
-        // console.log("User Data:", userDat.data());
+        console.log("User Data:", userDat.data());
         // console.log("Curent point",userDat.data().point)
         // console.log("Login Streak",userDat.data().loginStreak)
         // console.log("Missions finished",userDat.data().missions)
@@ -43,7 +44,7 @@ const postData = async () => {
         userData.name = userDat.data().name
         userData.point = userDat.data().point
         userData.loginStreak = userDat.data().loginStreak
-        userData.missions = userDat.data().missions
+        userData.missionComplete = userDat.data().missionComplete
 
         // const SpendSnap = collection(db, "user", user, "spendlist");
         // const userSpend = await getDocs(SpendSnap);  
@@ -67,9 +68,18 @@ export default function Profile(props) {
 
     async function setUsrData(){
         try {
-            const userIfJson = await AsyncStorage.getItem('@LocalUser');
-            const user = JSON.parse(userIfJson);
-            setUserData(user[0]);
+            const user = await AsyncStorage.getItem('@user');
+            if(user != "0"){
+                const Snap = doc(db, "user", user);
+                const userDat = await getDoc(Snap);
+                let temp = userDat.data();
+                setUserData(temp);
+            }else 
+            {
+                const userIfJson = await AsyncStorage.getItem('@LocalUser');
+                const userr = JSON.parse(userIfJson);
+                setUserData(userr[0]);
+            }
         }catch(e){
 
         }
@@ -80,9 +90,8 @@ export default function Profile(props) {
 
     //var img = '../../assets/user.jpg';
     // let userData = userInformation[props.id];
-    //let userData = userInformation[0]
-    getData(userData)
-    console.log(userData)
+    //let userData = userInformation[0
+
     const createTwoButtonAlert = () => {
         
         Alert.alert(
@@ -116,7 +125,7 @@ export default function Profile(props) {
             </View>
             <View style={styles.achievement}>
                 <Text style={styles.TitleAch}>Nhiệm vụ hoàn thành: </Text>
-                <Text style={styles.contentAch}>{userData.missions}</Text>
+                <Text style={styles.contentAch}>{userData.missionComplete}</Text>
             </View>
             <View style={styles.buttons}>
                 <Button title='Getdata'  onPress={getData}/>
