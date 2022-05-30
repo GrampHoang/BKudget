@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import React, {useState, useEffect} from 'react';
 import Footer from "../components/Footer.js";
 import Header from "../components/Header.js";
-import {saveFinanceInit,storeExpenseData} from '../data/financeData.js';
+import {saveFinanceInitLocal,storeExpenseDataLocal} from '../data/LocalDataHandle.js';
 import styles from '../components/HomeScreen/style.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 

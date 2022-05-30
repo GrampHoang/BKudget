@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from '../components/HomeScreen/style.js';
 import {categoriesData} from '../data/category.js';
 import { COLORS } from '../constants/themes.js';
-import { storeExpenseData, storeExpenseListData} from '../data/financeData.js';
+import { storeExpenseDataLocal, storeExpenseListDataLocal} from '../data/LocalDataHandle.js';
 import {format} from '../components/Utils/moneyFormat.js';
 
 //
@@ -17,13 +17,12 @@ const HomeScreen = ({navigation}) => {
   const [categoryID, setCategoryID] = useState(0);
   const [goal, setGoal] = useState('0');
 
-
   useEffect(() => {
-    getCategoryData()
-    getInitData()
+    getCategoryDataLocal()
+    getInitDataLocal()
   }, []);
 
-  async function getInitData() {
+  async function getInitDataLocal() {
     try {
       const g = await AsyncStorage.getItem('@Goal')
       if(g !== null) {
@@ -32,13 +31,9 @@ const HomeScreen = ({navigation}) => {
     } catch(e) {
       // error reading value
     }
-}
-
-  function totalExpense() {
-    return -categories.slice(0,-1).reduce((a, b) => a + b.expense, 0) + categories.slice(-1)[0].expense;
   }
-  
-  async function getCategoryData() {
+
+  async function getCategoryDataLocal() {
     try {
       const jsonValue = await AsyncStorage.getItem('@Expense_data')
       const expenses =  jsonValue != null ? JSON.parse(jsonValue) : null;
@@ -47,6 +42,10 @@ const HomeScreen = ({navigation}) => {
     } catch(e) {
       // error reading value
     }
+  }
+
+  function totalExpense() {
+    return -categories.slice(0,-1).reduce((a, b) => a + b.expense, 0) + categories.slice(-1)[0].expense;
   }
 
   function renderCategoryList() {
@@ -94,7 +93,6 @@ const HomeScreen = ({navigation}) => {
       }
     })
     
-
     // filter out categories with no data/expenses
     let filterChartData = chartData.slice(0,-1).filter(a => a.total > 0)
 
@@ -150,8 +148,8 @@ const HomeScreen = ({navigation}) => {
       let updateCategories = [...categories];
       updateCategories[categoryID].expense += amount;
       setCategories(updateCategories)
-      storeExpenseData(categories.map(item => {return item.expense}))
-      storeExpenseListData(des, amount, categoryID)
+      storeExpenseDataLocal(categories.map(item => {return item.expense}))
+      storeExpenseListDataLocal(des, amount, categoryID)
       setAmount(0)
       setDes('')
     }

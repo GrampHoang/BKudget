@@ -1,12 +1,9 @@
 import {categoriesData} from './category';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { db } from '../../firebase.js';
 import Month from '../components/DetailScreen/Month';
 
-export function updateData(id, amount, des) {
-    categoriesData[id].expenses += amount;
-}
-
-export async function storeExpenseData(value) {
+export async function storeExpenseDataLocal(value) {
   try {
     const jsonValue = JSON.stringify(value)
     await AsyncStorage.setItem('@Expense_data', jsonValue)
@@ -15,7 +12,7 @@ export async function storeExpenseData(value) {
   }
 }  
 
-export async function storeExpenseListData(des, amount, ID) {
+export async function storeExpenseListDataLocal(des, amount, ID) {
   try {
     const newExpense = {
       ID: ID,
@@ -47,7 +44,7 @@ export async function storeExpenseListData(des, amount, ID) {
 }  
 
 
-export async function saveFinanceInit(balance, goal) {
+export async function saveFinanceInitLocal(balance, goal) {
     try {
       await AsyncStorage.setItem('@Balance', balance)
       await AsyncStorage.setItem('@Goal', goal)
