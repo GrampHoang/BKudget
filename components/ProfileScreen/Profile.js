@@ -6,7 +6,6 @@ import { collection, getDocs, getDoc, setDoc, doc } from 'firebase/firestore/';
 import { async } from '@firebase/util';
 import { completeDailyMission } from "../../data/localmission";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useState, useEffect} from 'react';
 import { useIsFocused } from '@react-navigation/native';
 import { setUserInfo } from '../../data/userInfo';
 
@@ -79,7 +78,7 @@ export default function Profile(props) {
 
     // let userData = userInformation[props.id];
 
-    var img = '../../assets/user.jpg';
+    //var img = '../../assets/user.jpg';
     // let userData = userInformation[props.id];
     //let userData = userInformation[0]
     getData(userData)
