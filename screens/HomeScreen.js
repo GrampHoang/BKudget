@@ -1,13 +1,16 @@
 import { StyleSheet, Text, View, FlatList, TouchableOpacity, Image, Modal, Pressable, TextInput} from 'react-native';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import { VictoryPie, VictoryLabel } from 'victory-native';
 import {Svg} from 'react-native-svg';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from '../components/HomeScreen/style.js';
 import {categoriesData} from '../data/category.js';
 import { COLORS } from '../constants/themes.js';
-import { storeExpenseDataLocal, storeExpenseListDataLocal} from '../data/LocalDataHandle.js';
+import {storeExpenseListDataLocal, updateBalanceLocal} from '../data/LocalDataHandle.js';
+import {addDatabaseExpense, updateBalanceData} from '../data/FireBaseHandle.js';
 import {format} from '../components/Utils/moneyFormat.js';
+import { collection, getDocs, getDoc, setDoc, doc } from 'firebase/firestore/';
+import { db } from '../firebase.js';
 
 //
 
@@ -16,31 +19,76 @@ const HomeScreen = ({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [categoryID, setCategoryID] = useState(0);
   const [goal, setGoal] = useState('0');
+  //const [user, setUser] = useState("0")
+  const [user, setUser] = useState("123456@gmail.com")
+  const [userData, setUserData] = useState(null)
+  //const componentMounted = useRef(true);
 
   useEffect(() => {
-    getCategoryDataLocal()
-    getInitDataLocal()
+    //getUser()
+    //setUser()
+    getCategoryData()
+    getInitData()
+    
   }, []);
 
-  async function getInitDataLocal() {
+  function mapExpense(expenses) {
+    let passExpenses = [...categories]
+    expenses.forEach(item => {
+      passExpenses[item.ID].expense += item.expense
+    });
+    setCategories(passExpenses)
+  }
+
+  async function getUser() {
     try {
-      const g = await AsyncStorage.getItem('@Goal')
-      if(g !== null) {
-        setGoal(g)
+      const u = await AsyncStorage.getItem('@user')
+      setUser(u)
+    } catch(e) {
+      // error reading value
+    }
+  }
+
+  async function getInitData() {
+    try {
+      if (user != "0" && user != null)
+      {
+        const Snap = doc(db, "user", user);
+        const data = await getDoc(Snap)
+        setUserData(data.data()); 
+        setGoal(userData.goal)
+
+      }
+      else
+      {
+        const g = await AsyncStorage.getItem('@Goal')
+        if(g !== null) {
+          setGoal(g)
+
+        }
       }
     } catch(e) {
       // error reading value
     }
   }
 
-  async function getCategoryDataLocal() {
+  async function getCategoryData() {
     try {
-      const jsonValue = await AsyncStorage.getItem('@Expense_data')
+      let jsonValue = ""
+      if (user != "0" && user != null)
+      {
+        jsonValue = userData.expenseList
+        //console.log(jsonValue)
+      }
+      else
+      {
+        jsonValue = await AsyncStorage.getItem('@Expense_list')
+      }
       const expenses =  jsonValue != null ? JSON.parse(jsonValue) : null;
-      let passExpense = categories.map(item => {return {...item, expense: expenses[item.id]}})
-      setCategories(passExpense)
+      mapExpense(expenses)
     } catch(e) {
       // error reading value
+
     }
   }
 
@@ -127,7 +175,7 @@ const HomeScreen = ({navigation}) => {
           textAnchor="middle"
           style={{ fontSize: 25, fill: COLORS.lightGreen}}
           x={200} y={180}
-          text={chartData.slice(-1)[0].total}
+          text={format(chartData.slice(-1)[0].total)}
         />
         <VictoryLabel
           textAnchor="middle"
@@ -144,12 +192,22 @@ const HomeScreen = ({navigation}) => {
   const handleAddExpense = () => {
     if (amount > 0 || des != '')
     {
-      console.log(amount)
+      //console.log(amount)
       let updateCategories = [...categories];
       updateCategories[categoryID].expense += amount;
       setCategories(updateCategories)
-      storeExpenseDataLocal(categories.map(item => {return item.expense}))
-      storeExpenseListDataLocal(des, amount, categoryID)
+      setAmount(amount * (categoryID == 5 ? 1 : -1))
+      if (user != "0" && user != null)
+      {
+        addDatabaseExpense(user, des, amount, categoryID)
+        updateBalanceData(user , amount)
+      }
+      else
+      {
+        storeExpenseListDataLocal(des, amount, categoryID)
+        updateBalanceLocal(amount)
+        //console.log("fdf")
+      }
       setAmount(0)
       setDes('')
     }
