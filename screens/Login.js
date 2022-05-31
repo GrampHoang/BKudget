@@ -13,6 +13,7 @@ import { Dimensions } from "react-native";
 var pwidth = Dimensions.get('window').width; //full width
 //var height = Dimensions.get('window').height; //full height
 
+
 const useTogglePasswordVisibility = () => {
   const [passwordVisibility, setPasswordVisibility] = useState(true);
   const [rightIcon, setRightIcon] = useState('eye');
@@ -40,7 +41,7 @@ export default function LoginScreen({navigation}) {
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState('');
   const { passwordVisibility, rightIcon, handlePasswordVisibility } = useTogglePasswordVisibility();
-
+ 
   const oops = (user) =>{
     console.log(user.email)
   }
@@ -75,7 +76,6 @@ export default function LoginScreen({navigation}) {
           autoCapitalize='none'
           placeholder="Email"
           placeholderTextColor="#808080"
-          autoFocus={true}
           onChangeText={(email) => setEmail(email)}
         />
       </View>
@@ -94,10 +94,10 @@ export default function LoginScreen({navigation}) {
         <MaterialCommunityIcons name={rightIcon} size={22} color="#232323" />
       </Pressable>
       </View>
-
-      <TouchableOpacity onPress={oops}>
+    
+      {/* <TouchableOpacity onPress={oops}>
         <Text style={styles.forgot_button}>Quên mật khẩu?</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
  
       <TouchableOpacity style={styles.loginBtn} onPress={onLogin}>
         <Text style={styles.loginText}>ĐĂNG NHẬP</Text>
@@ -111,10 +111,10 @@ export default function LoginScreen({navigation}) {
       </View>
         
 
-      <Text style={styles.guest_text}>Hoặc</Text>
+      <Text style={styles.guest_text}>Hoặc sử dụng offline:</Text>
 
       <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-      <Image style={styles.guest} source={require("../assets/favicon.png")} />
+      <Image style={styles.guest} source={require("../assets/guest.png")} />
       </TouchableOpacity>
     </View>
   );
@@ -213,8 +213,11 @@ const styles = StyleSheet.create({
 
   guest: {
     marginTop: 0,
-    backgroundColor: "#FFFFFF",
-    width: 50,
-    height: 50,
+    backgroundColor: "white",
+    width: 60,
+    height: 60,
+    borderWidth: 3,
+    borderRadius: 30,
+    borderColor: "black",
   },
 });

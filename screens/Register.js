@@ -91,7 +91,7 @@ export default function RegisterScreen({navigation}) {
   {isIn}
   return (
     <View style={styles.container}>
-      <Image style={styles.logo} source={require("../assets/favicon.png")} />
+      <Image style={styles.logo} source={require("../assets/App.png")} />
 
       <StatusBar style="auto" />
       <View>
@@ -167,8 +167,8 @@ const styles = StyleSheet.create({
   logo: {
     marginTop: 40,
     marginBottom: 40,
-    width: 60,
-    height: 60,
+    width: 88,
+    height: 97,
   },
  
   inputView: {
