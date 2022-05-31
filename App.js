@@ -8,6 +8,7 @@ import LoginScreen from './screens/Login.js';
 import RegisterScreen from './screens/Register.js';
 import { LogBox } from 'react-native';
 import { useAuthentication } from './Auth/Auth.js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();

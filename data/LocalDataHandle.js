@@ -1,6 +1,6 @@
 import {categoriesData} from './category';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { db } from '../../firebase.js';
+import { db } from '../firebase.js';
 import Month from '../components/DetailScreen/Month';
 
 export async function storeExpenseDataLocal(value) {

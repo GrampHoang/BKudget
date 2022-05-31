@@ -8,6 +8,9 @@ import { collection, getDocs, getDoc, setDoc, doc } from 'firebase/firestore/';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from '@react-navigation/native';
 // import { setUserInfo } from '../../data/userInfo';
+import { Dimensions } from "react-native";
+
+var pHeight = Dimensions.get('window').height;
 
 const postData = async () => {
     const user = await AsyncStorage.getItem('@user');
@@ -34,17 +37,17 @@ const postData = async () => {
         // console.log("Users list:")
         // console.log(data)
         
-        const Snap = doc(db, "user", user);
-        const userDat = await getDoc(Snap);  
-        console.log("User Data:", userDat.data());
+        // const Snap = doc(db, "user", user);
+        // const userDat = await getDoc(Snap);  
+        // console.log("User Data:", userDat.data());
         // console.log("Curent point",userDat.data().point)
         // console.log("Login Streak",userDat.data().loginStreak)
         // console.log("Missions finished",userDat.data().missions)
-        console.log(user)
-        userData.name = userDat.data().name
-        userData.point = userDat.data().point
-        userData.loginStreak = userDat.data().loginStreak
-        userData.missionComplete = userDat.data().missionComplete
+        // console.log(user)
+        // userData.name = userDat.data().name
+        // userData.point = userDat.data().point
+        // userData.loginStreak = userDat.data().loginStreak
+        // userData.missionComplete = userDat.data().missionComplete
 
         // const SpendSnap = collection(db, "user", user, "spendlist");
         // const userSpend = await getDocs(SpendSnap);  
@@ -69,7 +72,7 @@ export default function Profile(props) {
     async function setUsrData(){
         try {
             const user = await AsyncStorage.getItem('@user');
-            if(user != "0"){
+            if(user !== "0"){
                 const Snap = doc(db, "user", user);
                 const userDat = await getDoc(Snap);
                 let temp = userDat.data();
@@ -111,7 +114,7 @@ export default function Profile(props) {
     return (
         <>
             <View style={styles.container}>
-            <TouchableOpacity onPress={()=>{}}>
+            <TouchableOpacity onPress={()=>{}} style={{paddingTop:25}}>
                     <Image source={require(img)} style={styles.image} />
             </TouchableOpacity>
             <Text style={styles.userName}>{userData.name}</Text>
@@ -127,14 +130,14 @@ export default function Profile(props) {
                 <Text style={styles.TitleAch}>Nhiệm vụ hoàn thành: </Text>
                 <Text style={styles.contentAch}>{userData.missionComplete}</Text>
             </View>
-            <View style={styles.buttons}>
+            {/* <View style={styles.buttons}>
                 <Button title='Getdata'  onPress={getData}/>
             </View>
 
 
             <View style={styles.buttons}>
                 <Button title='PostData'  onPress={postData}/>
-            </View>
+            </View> */}
 
         </View>
         </>
@@ -147,8 +150,7 @@ const styles = StyleSheet.create({
     },
     container:{
         flexDirection: 'column',
-        paddingTop: 20,
-        height: 700,
+        height: (pHeight - 175),
         backgroundColor: 'white',
     },
     userName: {
@@ -173,6 +175,7 @@ const styles = StyleSheet.create({
         borderWidth: 0.5,
         borderRadius: 5,
         flexDirection: "row",
+        borderColor: "#AAAAAA",
         
     },
     TitleAch: {

@@ -28,11 +28,11 @@ const styles = StyleSheet.create({
     },
     date:{
         color: '#000000',
-        fontSize: 24,
+        fontSize: 20,
         flex: 4,
         textAlign: 'left',
         fontWeight: 'bold',
-        paddingLeft: 30,
+        paddingLeft: 15,
     },
     month:{
         color: '#000000',

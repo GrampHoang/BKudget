@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const auth = getAuth();
 
@@ -10,6 +11,7 @@ export function useAuthentication() {
       if (user) {
         setUser(user);
       } else {
+        AsyncStorage.setItem('@user', '0')
         setUser("undefined");
       }
     });

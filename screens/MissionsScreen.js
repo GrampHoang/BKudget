@@ -98,17 +98,27 @@ const styles = StyleSheet.create({
     padding: 8,
     margin: 0,
     flexDirection: 'row',
+    backgroundColor: "#4FC462",
 
   },
   missionHeader: {
-    marginLeft: "auto",
     fontSize: 28,
+    color: "white",
+    alignSelf: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    width: "90%",
   },
   leftimage: {
-
+    width: 20,
+    height: 20,
+    alignSelf: "center",
+    justifyContent: "center",
   },
   rightimage: {
-    marginLeft: 'auto',
-
+    width: 20,
+    height: 20,
+    alignSelf: "center",
+    justifyContent: "center",
   }
 });

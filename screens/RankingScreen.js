@@ -66,7 +66,16 @@ export default function RankingScreen() {
 const styles = StyleSheet.create({
     header: {
         textAlign: 'center',
-        fontSize: 32,
+        fontSize: 30,
+        color: "white",
+        height: 50,
+        backgroundColor: '#4FC462',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderBottomColor: "black",
+        borderBottomWidth: 1,
     },
     container: {
         flex: 1,

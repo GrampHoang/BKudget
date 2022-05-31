@@ -1,5 +1,6 @@
 import {Text, View, Modal, Pressable, TextInput} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
+import { StatusBar } from "expo-status-bar";
 import React, {useState, useEffect} from 'react';
 import Footer from "../components/Footer.js";
 import Header from "../components/Header.js";
@@ -44,6 +45,7 @@ const Home = ({navigation}) => {
 
     return(
       <NavigationContainer independent={true} screenOptions={{headerShown: false}}>
+        <StatusBar translucent={false}/>
         <Header value = {balance}/>
         <Modal
           animationType="slide"
