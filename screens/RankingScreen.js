@@ -48,7 +48,7 @@ export default function RankingScreen() {
   }, [isFocused]);
   function UserList() {
     return ( userList.length > 0 ?
-      userList.map((data, index) => <User key={index} point={data.point} day={data.loginStreak}/>)
+      userList.map((data, index) => <User key={index} point={data.point} userName={data.name} day={data.loginStreak}/>)
       : <Text style={styles.error}>Không có dữ liệu</Text>
     )
   }

@@ -6,7 +6,7 @@ export default function User(props) {
     return (
         <>
         <View style={styles.container}>
-            <Image source={require(img)} style={styles.image}/>
+            <Text style={styles.name}>{props.userName}</Text>
             <Text style={styles.point}>{props.point} điểm</Text>
             <Text style={styles.day}>{props.day} ngày</Text>
         </View>
@@ -32,12 +32,10 @@ const styles = StyleSheet.create({
         borderColor: "#AAAAAA",
         borderWidth: 1,
     },
-    image:{
-        height: 50,
-        width: 50,
-        borderRadius: 25,
-        backgroundColor: 'blue',
-        marginRight: 25,
+    name:{
+        fontSize: 22,
+        flex: 3.5,
+        fontWeight: '700',
     },
     point:{
         fontSize: 22,

@@ -87,7 +87,7 @@ export default function Profile(props) {
 
         }
     }
-    var img = '../../assets/user.jpg';
+    var img = '../../assets/fb_avatar.jpg';
 
     // let userData = userInformation[props.id];
 
