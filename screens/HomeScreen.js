@@ -7,6 +7,7 @@ import {mapExpense, totalExpense} from '../components/HomeScreen/utils.js';
 import {storeExpenseListDataLocal, updateBalanceLocal, newProgressLocal} from '../data/LocalDataHandle.js';
 import {addDatabaseExpense, updateBalanceData, addInitData, newProgressData} from '../data/FireBaseHandle.js';
 import {format, moneyInt} from '../components/Utils/moneyFormat.js';
+import {checkMission} from '../components/Utils/checkMission';
 import {getDoc, doc} from 'firebase/firestore/';
 import { db } from '../firebase.js';
 import { categoriesData } from '../data/category.js';
@@ -137,6 +138,7 @@ const HomeScreen = ({route, navigation}) => {
         storeExpenseListDataLocal(des, amount, categoryID)
         updateBalanceLocal(expense)
       }
+      checkMission(categoryID, des)
       setAmount(0)
       setDes('')
       setBalance(format(moneyInt(balance)+expense))
