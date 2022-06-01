@@ -9,9 +9,10 @@ export function useAuthentication() {
   useEffect(() => {
     const unsubscribeFromAuthStatuChanged = onAuthStateChanged(auth, (user) => {
       if (user) {
+        AsyncStorage.setItem('@user', user.email);
         setUser(user);
       } else {
-        AsyncStorage.setItem('@user', '0')
+        AsyncStorage.setItem('@user', '0');
         setUser("undefined");
       }
     });

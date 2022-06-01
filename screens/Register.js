@@ -7,11 +7,27 @@ import { authenthication } from '../firebase.js';
 import ErrorMessage from '../components/ErrorMessage.js';
 import { userCredentials, createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import onAuthStateChanged from "firebase/auth"
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { db } from '../firebase.js';
+import { setDoc, doc } from "firebase/firestore";
+import { useAuthentication } from "../Auth/Auth.js";
 
 
 var pwidth = Dimensions.get('window').width; //full width
 //var height = Dimensions.get('window').heigh t; //full height
+
+const postData = async (username) => {
+  const user = await AsyncStorage.getItem('@user');
+  await setDoc(doc(db, "user", user), {
+      point: 0,
+      loginStreak: 0,
+      missionComplete: 0,
+      goal: "0",
+      balance: "0",
+      name: username,
+      expenseList: "",
+    });
+}
 
 const useTogglePasswordVisibility = () => {
   const [passwordVisibility, setPasswordVisibility] = useState(true);
@@ -45,28 +61,37 @@ export default function RegisterScreen({navigation}) {
   const [loginError, setLoginError] = useState('');
   const { passwordVisibility, rightIcon, handlePasswordVisibility } = useTogglePasswordVisibility();
 
+
   const RegUser = async () => {
     try{
       if (email !== '' && password !== '') {
-        await createUserWithEmailAndPassword(authenthication, email, password);
-        await signInWithEmailAndPassword(authenthication, email, password);
-        onAuthStateChanged(authenthication, (user) => {
-          if (user) {
-            console.log('Loggin in as:',user.email);
-            AsyncStorage.setItem('@user', user.email);
-            setDoc(doc(db, "user", user), {
-              point: 0,
-              loginStreak: 0,
-              missions: 0,
-            });
-            setDoc(doc(db, "user", user, "spendlist", "spend1"), {
-              date: 0,
-              id: 0,
-              money: 0,
-              desciption: "",
-            });
-          }
-       });
+        await createUserWithEmailAndPassword(authenthication, email, password).then(() => {
+          console.log('User account created & signed in!');
+          AsyncStorage.setItem('@user', email);
+          console.log(username);
+          postData(username)
+        })
+      //   console.log(user.email)
+      //   await signInWithEmailAndPassword(authenthication, email, password);
+      //   console.log(user.email)
+      //   onAuthStateChanged(authenthication, (user) => {
+      //     console.log(user.email)
+      //     if (user) {
+      //       console.log('Loggin in as:',user.email);
+      //       AsyncStorage.setItem('@user', user.email);
+      //       setDoc(doc(db, "user", user.email), {
+      //         point: 0,
+      //         loginStreak: 0,
+      //         missions: 0,
+      //       });
+      //       setDoc(doc(db, "user", user.email, "spendlist", "spend1"), {
+      //         date: 0,
+      //         id: 0,
+      //         money: 0,
+      //         desciption: "",
+      //       });
+      //     }
+      //  });
       }
     }
       catch (error) {
