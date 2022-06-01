@@ -133,7 +133,8 @@ import { collection, getDocs, getDoc, setDoc, doc } from 'firebase/firestore/';
     return chi;
   }
   async function test() {
-    await AsyncStorage.setItem('@user','123456@gmail.com');
+    var a = await AsyncStorage.getItem('@user');
+    console.log(a);
     }
   
   var datelist = getDateList().reverse();
