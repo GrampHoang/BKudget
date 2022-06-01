@@ -6,14 +6,14 @@ import { authenthication } from '../firebase.js';
 import { getAuth,signOut } from "firebase/auth";
 import { setUserInfo } from '../data/userInfo.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { loginStreak } from '../data/localmission';
 const logOut = async () => {
   signOut(authenthication)
 .then(() => console.log('User signed out!'));
   try{
   const user = await AsyncStorage.getItem('@user');
   const check = JSON.parse(user);
-  console.log(check)
+
     if (check == "0") {
       Alert.alert(
         "Bạn đang là khách!",
@@ -33,6 +33,7 @@ const logOut = async () => {
 }
 export default function DetailScreen({navigation}) {
   setUserInfo();
+  loginStreak();
   return (
     <View style={styles.container}>
     <StatusBar translucent={false}/>

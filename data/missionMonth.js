@@ -4,20 +4,20 @@ export let monthMission = [
         content: "Trả hoá đơn",
         finished: false,
         description: "ASdasdjasdlkjasdjasldjsakldjalssdjlaskd",
-        point: 5,
+        point: 15,
     },
     {
         id: 1,
         content: "Nhận lương",
         finished: false,
         description: "ASdasdjasdlkjasdjasldjsakldjalssdjlaskd",
-        point: 5,
+        point: 15,
     },
     {
         id: 2,
-        content: "Kiểm tra thu chi",
+        content: "Chuỗi đăng nhập 14",
         finished: false,
         description: "ASdasdjasdlkjasdjasldjsakldjalssdjlaskd",
-        point: 5,
+        point: 20,
     }
 ];

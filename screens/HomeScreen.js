@@ -16,7 +16,7 @@ const HomeScreen = ({navigation}) => {
   const [goal, setGoal] = useState('0');
   //const [user, setUser] = useState("0")
   const [user, setUser] = useState("0")
-  
+
   const [categoryID, setCategoryID] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
   const [amount, setAmount] = useState(0);

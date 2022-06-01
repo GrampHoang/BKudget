@@ -4,7 +4,7 @@ export let dailyMission = [
         content: "Đăng nhập",
         finished: false,
         description: "ASdasdjasdlkjasdjasldjsakldjalssdjlaskd",
-        point: 5,
+        point: 1,
     },
     {
         id: 1,
@@ -25,6 +25,6 @@ export let dailyMission = [
         content: "Kiểm tra thu chi",
         finished: false,
         description: "ASdasdjasdlkjasdjasldjsakldjalssdjlaskd",
-        point: 5,
+        point: 2,
     }
 ];

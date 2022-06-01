@@ -12,13 +12,13 @@ import React, {useState, useEffect} from 'react';
 import { storeMissionData, resetDaily, setFirstDay} from "../data/localmission";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from '@react-navigation/native';
-// import { pleple } from "../data/localmission";
-// import { completeMonthMission } from "../data/localmission";
+import { pleple } from "../data/localmission";
+import { completeMonthMission } from "../data/localmission";
+import { completeDailyMission } from "../data/localmission";
 export default function MissionsScreen() {
   storeMissionData();
   setFirstDay();
   // pleple();
-  // completeMonthMission(1);
 
   const [daily, setDaily] = useState(true);
   const [missionList, setMissionList] = useState([]);
@@ -39,14 +39,29 @@ export default function MissionsScreen() {
   
   async function getMission() {
     try {
-      const dailIn = await AsyncStorage.getItem('@DailyMission')
-      const dail = JSON.parse(dailIn);
+      const user = await AsyncStorage.getItem('@user');
+        let dail;
+        if(user!="0"){
+          const dailIn = await AsyncStorage.getItem('@LogDailyMission')
+          dail = JSON.parse(dailIn);
+        }else {
+          const dailIn = await AsyncStorage.getItem('@DailyMission')
+          dail = JSON.parse(dailIn);
+        }
+      
       setDailymission(dail);
       setDaily(true);
       setMissionType("Nhiệm vụ hằng ngày");
       setMissionList(dail);
-      const monthIn = await AsyncStorage.getItem('@MonthMission')
-      const month = JSON.parse(monthIn);
+      let month;
+      if(user!="0"){
+        const monthIn = await AsyncStorage.getItem('@LogMonthMission')
+        month = JSON.parse(monthIn);
+      }else {
+        const monthIn = await AsyncStorage.getItem('@MonthMission')
+        month = JSON.parse(monthIn);
+      }
+
       setMonthmission(month);
     } catch (e) {    
     }
