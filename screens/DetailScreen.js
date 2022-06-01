@@ -9,6 +9,7 @@ import { useState, useEffect } from 'react';
 import { useIsFocused } from '@react-navigation/native';
 import { db } from '../firebase.js';
 import { collection, getDocs, getDoc, setDoc, doc } from 'firebase/firestore/';
+import Header from "../components/Header.js";
 
   export default function DetailScreen() {
     var [dataList,SetdataList] = useState();
@@ -140,6 +141,7 @@ import { collection, getDocs, getDoc, setDoc, doc } from 'firebase/firestore/';
   var datelist = getDateList().reverse();
   return (
     <View style={styles.container}>
+        <Header value = "0"/>
         <Month thu = {thu} chi = {chi}/>
         {
         <FlatList 

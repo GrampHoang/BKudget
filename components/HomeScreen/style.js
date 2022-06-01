@@ -24,7 +24,18 @@ const styles = StyleSheet.create({
       marginTop: 22
     },
     modalView: {
-      height: 400,
+      height: 350,
+      width: 300,
+      margin: 20,
+      backgroundColor: "white",
+      borderRadius: 20,
+      borderColor: 'black',
+      borderWidth: 1,
+      padding: 10,
+      alignItems: "center",
+    },
+    modalViewProgress: {
+      height: 250,
       width: 300,
       margin: 20,
       backgroundColor: "white",
@@ -39,11 +50,19 @@ const styles = StyleSheet.create({
       margin: 20,
       textAlign: "center",
     },
-    buttontextStyle: {
+    submitButton: {
       color: '#16B830',
-      fontSize: 40,
+      fontSize: 30,
       fontWeight: 'bold', 
-      marginTop: 30,
+      marginTop: 20,
+      marginHorizontal: 25,
+    },
+    cancelButton: {
+      color: 'black',
+      fontSize: 30,
+      fontWeight: 'bold', 
+      marginTop: 20,
+      marginHorizontal: 25,
     },
     input: {
       borderColor: '#000000',

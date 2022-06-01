@@ -47,9 +47,22 @@ export async function updateBalanceLocal(amount) {
   try {
     //console.log("save")
     let b = await AsyncStorage.getItem('@Balance')
+    let p = await AsyncStorage.getItem('@Progress')
     //console.log(moneyInt(b))
     //console.log(format(moneyInt(b)+amount))
     await AsyncStorage.setItem('@Balance', format(moneyInt(b)+amount))
+    await AsyncStorage.setItem('@Progress', format(moneyInt(p)+amount))
+    //await AsyncStorage.setItem('@Balance', '5,000,000')
+  } catch (e) {
+    // saving error
+  }
+}
+
+export async function newProgressLocal(goal, progress) {
+  try {
+    //console.log("save")
+    await AsyncStorage.setItem('@Goal', goal)
+    await AsyncStorage.setItem('@Progress', progress)
     //await AsyncStorage.setItem('@Balance', '5,000,000')
   } catch (e) {
     // saving error

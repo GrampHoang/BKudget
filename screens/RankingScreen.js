@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import { useIsFocused } from '@react-navigation/native';
 import { db } from '../firebase.js';
 import { collection, getDocs, getDoc, setDoc, doc } from 'firebase/firestore/';
+import Header from "../components/Header.js";
 export default function RankingScreen() {
   const [userList,SetuserList] = useState([])
   useEffect(() => {
@@ -55,6 +56,7 @@ export default function RankingScreen() {
   return (
     <View style={styles.container}>
       <StatusBar translucent={false}/>
+      <Header value = "0"/>
         <Text style={styles.header}>Bảng xếp hạng</Text>
         <ScrollView>
           <UserList/>

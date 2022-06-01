@@ -24,6 +24,7 @@ const postData = async (username) => {
       missionComplete: 0,
       goal: "0",
       balance: "0",
+      progress: "0",
       name: username,
       expenseList: "",
     });

@@ -12,6 +12,7 @@ import React, {useState, useEffect} from 'react';
 import { storeMissionData, resetDaily, setFirstDay} from "../data/localmission";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from '@react-navigation/native';
+import Header from "../components/Header.js";
 // import { pleple } from "../data/localmission";
 // import { completeMonthMission } from "../data/localmission";
 export default function MissionsScreen() {
@@ -56,6 +57,7 @@ export default function MissionsScreen() {
     <View style={styles.container}>
       <StatusBar translucent={false} />
       {/* Change to another mission page when press */}
+      <Header value = "0"/>
       <TouchableOpacity
         onPress={() => [
           setDaily(!daily),

@@ -6,6 +6,7 @@ import { authenthication } from '../firebase.js';
 import { getAuth,signOut } from "firebase/auth";
 import { setUserInfo } from '../data/userInfo.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Header from "../components/Header.js";
 
 const logOut = async () => {
   signOut(authenthication)
@@ -36,6 +37,7 @@ export default function DetailScreen({navigation}) {
   return (
     <View style={styles.container}>
     <StatusBar translucent={false}/>
+    <Header value = "0"/>
     <Profile id="0"/>
     <View style={styles.buttons}>
               <Button title='Đăng xuất' onPress={logOut}/>

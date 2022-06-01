@@ -47,7 +47,18 @@ export async function updateBalanceData(username, amount) {
   const Snap = doc(db, "user", username);    
   const data = await getDoc(Snap); 
   const b = data.data().balance
+  const p = data.data().progress
   await updateDoc(Snap, {
-    balance: format(moneyInt(b)+amount)
+    balance: format(moneyInt(b)+amount),
+    progress: format(moneyInt(p)+amount)
+  });
+}
+
+export async function newProgressData(username, progress, goal) {
+  //console.log(amount)
+  const Snap = doc(db, "user", username);    
+  await updateDoc(Snap, {
+    progress: progress,
+    goal: goal
   });
 }
