@@ -82,6 +82,7 @@ export default function Profile(props) {
                 const userIfJson = await AsyncStorage.getItem('@LocalUser');
                 const userr = JSON.parse(userIfJson);
                 setUserData(userr[0]);
+                // console.log(userData)
             }
         }catch(e){
 

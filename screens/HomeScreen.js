@@ -18,7 +18,7 @@ const HomeScreen = ({route, navigation}) => {
   const [balance, setBalance] = useState('0');
   const [progress, setProgress] = useState('0');
   const [user, setUser] = useState("0")
-  
+
   const [categoryID, setCategoryID] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalInit, setInitVisible] = useState(false);

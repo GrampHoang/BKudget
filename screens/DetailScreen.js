@@ -8,10 +8,14 @@ import { Button } from 'react-native';
 import { useState, useEffect } from 'react';
 import { useIsFocused } from '@react-navigation/native';
 import { db } from '../firebase.js';
+import { completeDailyMission } from "../data/localmission";
+
 import { collection, getDocs, getDoc, setDoc, doc } from 'firebase/firestore/';
 import Header from "../components/Header.js";
 
+
   export default function DetailScreen() {
+    completeDailyMission(3);
     var [dataList,SetdataList] = useState();
     var thu = getThu();
     var chi = getChi();
