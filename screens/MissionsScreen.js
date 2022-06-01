@@ -19,6 +19,7 @@ export default function MissionsScreen() {
   storeMissionData();
   setFirstDay();
   // pleple();
+  completeDailyMission(0);
 
   const [daily, setDaily] = useState(true);
   const [missionList, setMissionList] = useState([]);

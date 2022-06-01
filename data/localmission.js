@@ -144,6 +144,34 @@ export async function loginStreak(){
     }catch(e)
     {}
 }
+export  async function login14(){
+    const user = await AsyncStorage.getItem('@user');
+        if(user!="0"){
+            const Snap = doc(db, "user", user);
+            const userDat = await getDoc(Snap);
+            let point,loginStreak,missionComplete;  
+            //data get from user database 
+            if(!userDat.data().point){
+                point = 0;
+                loginStreak = 1;
+                missionComplete = 0;
+            }else 
+            {
+                point = userDat.data().point;
+                loginStreak = userDat.data().loginStreak;
+                missionComplete = userDat.data().missionComplete;
+            }
+            if(loginStreak == 14){
+                completeMonthMission(2);
+            }
+        }else { const jsonValueIn = await AsyncStorage.getItem('@LocalUser')
+        const jsonValue = JSON.parse(jsonValueIn); 
+        if(jsonValue.loginStreak==14){
+                completeMonthMission(2);
+        }
+        await AsyncStorage.setItem('@LocalUser',value);
+    }
+}
 
 export async function setFirstDay(){
     try {
