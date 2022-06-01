@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Image } from 'react-native';
 import { format } from '../Utils/moneyFormat';
 export default function Detail(props) {
-    var moneystyle = props.money > 0 ? styles.moneyplus : styles.moneyminus;
+    var moneystyle = props.type == "Thu nhập" ? styles.moneyplus : styles.moneyminus;
     if (props.type == 'Đồ ăn') { 
         var img = require('../../assets/category/food_icon.png');
     }

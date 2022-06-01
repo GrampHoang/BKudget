@@ -95,7 +95,7 @@ import { collection, getDocs, getDoc, setDoc, doc } from 'firebase/firestore/';
     var arr = getDataByDate(date.date, date.month, date.year);
     return (
       arr.map((data, index) => <Detail key={index} content={data.description} 
-      money={data.ID == 5 ? data.expense : - data.expense} 
+      money={data.name == "Thu nhập" ? data.expense : - data.expense} 
       type={data.name}></Detail>)
     )
   }
@@ -133,7 +133,7 @@ import { collection, getDocs, getDoc, setDoc, doc } from 'firebase/firestore/';
     return chi;
   }
   async function test() {
-    await AsyncStorage.setItem('@user',"0");
+    await AsyncStorage.setItem('@user','123456@gmail.com');
     }
   
   var datelist = getDateList().reverse();
