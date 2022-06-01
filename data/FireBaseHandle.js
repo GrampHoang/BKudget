@@ -13,14 +13,11 @@ export async function addDatabaseExpense(username, des, amount, ID) {
         year: new Date().getFullYear(),
         expense: amount
     }
-    
     const Snap = doc(db, "user", username);
-    
     const data = await getDoc(Snap); 
-    
     const jsonValueIn = data.data().expenseList
-    console.log(jsonValueIn)
-    let expenseList = jsonValueIn != null ? JSON.parse(jsonValueIn) : null;
+    //console.log(jsonValueIn)
+    let expenseList = (jsonValueIn != null && jsonValueIn != "") ? JSON.parse(jsonValueIn) : null;
     
     if (expenseList === null)
     {
@@ -29,7 +26,6 @@ export async function addDatabaseExpense(username, des, amount, ID) {
     else 
     {
       expenseList.push(newExpense)
-      
     }
     const jsonValueOut = JSON.stringify(expenseList)
     await updateDoc(Snap, {
@@ -39,15 +35,19 @@ export async function addDatabaseExpense(username, des, amount, ID) {
 }
 
 export async function addInitData(username, b, g) {
-  await setDoc(doc(db, "user", username), {
+  const Snap = doc(db, "user", username);
+  await updateDoc(Snap, {
     balance: b,
     goal: g
   });
 }
 
 export async function updateBalanceData(username, amount) {
-  const b = await getDoc(doc(db, "user", user, "balance"));
-  await setDoc(doc(db, "user", username), {
+  //console.log(amount)
+  const Snap = doc(db, "user", username);    
+  const data = await getDoc(Snap); 
+  const b = data.data().balance
+  await updateDoc(Snap, {
     balance: format(moneyInt(b)+amount)
   });
 }

@@ -150,7 +150,6 @@ import { collection, getDocs, getDoc, setDoc, doc } from 'firebase/firestore/';
         </>
         }>
         </FlatList>}
-        <Button title='abc' onPress={test}/>
     </View>
   );
 }

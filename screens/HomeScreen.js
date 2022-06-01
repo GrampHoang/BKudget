@@ -1,103 +1,60 @@
 import { StyleSheet, Text, View, FlatList, TouchableOpacity, Image, Modal, Pressable, TextInput} from 'react-native';
 import React, {useState, useEffect, useRef} from 'react';
-import { VictoryPie, VictoryLabel } from 'victory-native';
-import {Svg} from 'react-native-svg';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from '../components/HomeScreen/style.js';
-import {categoriesData} from '../data/category.js';
-import { COLORS } from '../constants/themes.js';
+import {renderChart} from '../components/HomeScreen/chart.js';
+import {mapExpense, totalExpense} from '../components/HomeScreen/utils.js';
 import {storeExpenseListDataLocal, updateBalanceLocal} from '../data/LocalDataHandle.js';
 import {addDatabaseExpense, updateBalanceData} from '../data/FireBaseHandle.js';
 import {format} from '../components/Utils/moneyFormat.js';
-import { collection, getDocs, getDoc, setDoc, doc } from 'firebase/firestore/';
+import {getDoc, doc} from 'firebase/firestore/';
 import { db } from '../firebase.js';
-
-//
+import { categoriesData } from '../data/category.js';
 
 const HomeScreen = ({navigation}) => {
-  const [categories, setCategories] = useState(categoriesData)
-  const [modalVisible, setModalVisible] = useState(false);
-  const [categoryID, setCategoryID] = useState(0);
+  const [categories, setCategories] = useState([0,0,0,0,0,0])
   const [goal, setGoal] = useState('0');
   //const [user, setUser] = useState("0")
-  const [user, setUser] = useState("123456@gmail.com")
-  const [userData, setUserData] = useState(null)
-  //const componentMounted = useRef(true);
-
-  useEffect(() => {
-    //getUser()
-    //setUser()
-    getCategoryData()
-    getInitData()
-    
-  }, []);
-
-  function mapExpense(expenses) {
-    let passExpenses = [...categories]
-    expenses.forEach(item => {
-      passExpenses[item.ID].expense += item.expense
-    });
-    setCategories(passExpenses)
-  }
-
-  async function getUser() {
+  const [user, setUser] = useState("0")
+  
+  const [categoryID, setCategoryID] = useState(0);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [amount, setAmount] = useState(0);
+  const [des, setDes] = useState('');
+  //console.log(user)
+  useEffect(() => { 
+    getData()
+  },[user]);
+  async function getData() {
     try {
       const u = await AsyncStorage.getItem('@user')
-      setUser(u)
-    } catch(e) {
-      // error reading value
-    }
-  }
-
-  async function getInitData() {
-    try {
-      if (user != "0" && user != null)
-      {
-        const Snap = doc(db, "user", user);
-        const data = await getDoc(Snap)
-        setUserData(data.data()); 
-        setGoal(userData.goal)
-
-      }
-      else
-      {
-        const g = await AsyncStorage.getItem('@Goal')
-        if(g !== null) {
-          setGoal(g)
-
-        }
-      }
-    } catch(e) {
-      // error reading value
-    }
-  }
-
-  async function getCategoryData() {
-    try {
       let jsonValue = ""
-      if (user != "0" && user != null)
+      if (u != "0")
       {
-        jsonValue = userData.expenseList
-        //console.log(jsonValue)
+        //console.log(u)
+        const Snap = doc(db, "user", u);
+        const userData = await getDoc(Snap)
+        jsonValue = userData.data().expenseList
+        setGoal(userData.data().goal)
       }
       else
       {
-        jsonValue = await AsyncStorage.getItem('@Expense_list')
+        jsonValue = await AsyncStorage.getItem('@Expense_list')  
+        const g = await AsyncStorage.getItem('@Goal')
+        if (g !== null) setGoal(g)
       }
-      const expenses =  jsonValue != null ? JSON.parse(jsonValue) : null;
-      mapExpense(expenses)
+      
+      const expenses =  (jsonValue !== null && jsonValue !== "") ? JSON.parse(jsonValue) : [];
+      setCategories(mapExpense(expenses))
+      setUser(u)
+      //console.log(user)
     } catch(e) {
       // error reading value
-
     }
   }
-
-  function totalExpense() {
-    return -categories.slice(0,-1).reduce((a, b) => a + b.expense, 0) + categories.slice(-1)[0].expense;
-  }
-
   function renderCategoryList() {
-
+    //console.log(categories)
+    let listdata = categoriesData.map((item)=>{return {...item, expense: categories[item.id]}}) 
     const renderItem = ({ item }) => (
       <TouchableOpacity
           onPress={() => [setModalVisible(true), setCategoryID(item.id)]}
@@ -125,99 +82,45 @@ const HomeScreen = ({navigation}) => {
   )
     return (
         <FlatList
-          data={categories}
+          data={listdata}
           renderItem={renderItem}
           keyExtractor={item => `${item.id}`}
           numColumns = {3}
         />
     )
   }
-
-  function renderChart() {
-    let chartData = categories.map((item) => {
-      return {
-        total: item.expense,
-        color: item.color
-      }
-    })
-    
-    // filter out categories with no data/expenses
-    let filterChartData = chartData.slice(0,-1).filter(a => a.total > 0)
-
-    //console.log(filterChartData);
-
-    // Calculate the total expenses
-    let totalExpense = filterChartData.reduce((a, b) => a + (b.total || 0), 0)
-
-    // Calculate percentage and repopulate chart data
-    let finalChartData = filterChartData.map((item) => {
-        return {
-          y: item.total,
-        }
-    })
-
-    let chartColors = filterChartData.map((item) => item.color)
-
-    return (
-      <Svg>
-        <VictoryPie
-          standalone={false}
-          width={400} height={300}
-          colorScale = {chartColors}
-          data={finalChartData}
-          innerRadius={110} 
-          radius = {120}
-          style={{ labels: { display: "none" } }}
-          startAngle = {30}
-          endAngle = {390}
-        />
-        <VictoryLabel
-          textAnchor="middle"
-          style={{ fontSize: 25, fill: COLORS.lightGreen}}
-          x={200} y={180}
-          text={format(chartData.slice(-1)[0].total)}
-        />
-        <VictoryLabel
-          textAnchor="middle"
-          style={{ fontSize: 30 }}
-          x={200} y={140}
-          text= {format(totalExpense)}
-        />
-      </Svg>
-    );
-  }
-
-  const [amount, setAmount] = useState(0);
-  const [des, setDes] = useState('');
   const handleAddExpense = () => {
-    if (amount > 0 || des != '')
+    if (amount > 0 && des != '')
     {
-      //console.log(amount)
       let updateCategories = [...categories];
-      updateCategories[categoryID].expense += amount;
+      updateCategories[categoryID] += amount;
       setCategories(updateCategories)
-      setAmount(amount * (categoryID == 5 ? 1 : -1))
+      const expense = amount * (categoryID == 5 ? 1 : -1)
       if (user != "0" && user != null)
       {
         addDatabaseExpense(user, des, amount, categoryID)
-        updateBalanceData(user , amount)
+        updateBalanceData(user , expense)
       }
       else
       {
         storeExpenseListDataLocal(des, amount, categoryID)
-        updateBalanceLocal(amount)
-        //console.log("fdf")
+        updateBalanceLocal(expense)
       }
       setAmount(0)
       setDes('')
+      setModalVisible(!modalVisible)
+    }
+    else
+    {
+      alert('Vui lòng điền đầy đủ thông tin')
     }
   }
 
   return (
     <View style={styles.container}>
-        <Text style={styles.header}> {format(totalExpense())} / {goal}</Text>
+        <Text style={styles.header}> {format(totalExpense(categories))} / {goal}</Text>
         <View style= {{flex: 1}}>
-          {renderChart()}
+          {renderChart(categories)}
         </View>
         <View style= {{flex: 1}}>
           {renderCategoryList()}
@@ -248,7 +151,6 @@ const HomeScreen = ({navigation}) => {
                 style={styles.inputButton}
                 onPress={() => {
                   handleAddExpense()
-                  setModalVisible(!modalVisible)
                 }}
               >
                 <Text style={styles.buttontextStyle}>OK</Text>

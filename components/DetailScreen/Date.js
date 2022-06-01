@@ -1,4 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
+import { format } from '../Utils/moneyFormat';
 
 export default function Day(props) {
     var moneystyle = props.money > 0 ? styles.moneyplus : styles.moneyminus;
@@ -10,7 +11,7 @@ export default function Day(props) {
     return (
         <View style={styles.container}>
             <Text style={styles.date}>{date}</Text>
-            <Text style={moneystyle}>{props.money}</Text>
+            <Text style={moneystyle}>{format(props.money)}</Text>
         </View>
     )
 }

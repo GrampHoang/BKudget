@@ -1,16 +1,6 @@
 import {categoriesData} from './category';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { db } from '../firebase.js';
-import Month from '../components/DetailScreen/Month';
-
-export async function storeExpenseDataLocal(value) {
-  try {
-    const jsonValue = JSON.stringify(value)
-    await AsyncStorage.setItem('@Expense_data', jsonValue)
-  } catch (e) {
-    // saving error
-  }
-}  
+import {moneyInt, format} from '../components/Utils/moneyFormat.js';
 
 export async function storeExpenseListDataLocal(des, amount, ID) {
   try {
@@ -51,6 +41,19 @@ export async function saveFinanceInitLocal(balance, goal) {
     } catch (e) {
       // saving error
     }
+}
+
+export async function updateBalanceLocal(amount) {
+  try {
+    //console.log("save")
+    let b = await AsyncStorage.getItem('@Balance')
+    //console.log(moneyInt(b))
+    //console.log(format(moneyInt(b)+amount))
+    await AsyncStorage.setItem('@Balance', format(moneyInt(b)+amount))
+    //await AsyncStorage.setItem('@Balance', '5,000,000')
+  } catch (e) {
+    // saving error
+  }
 }
 
 
