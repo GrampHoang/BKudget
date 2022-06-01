@@ -113,7 +113,7 @@ export default function LoginScreen({navigation}) {
 
       <Text style={styles.guest_text}>Hoặc sử dụng offline:</Text>
 
-      <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+      <TouchableOpacity onPress={() => {navigation.navigate("Home");  AsyncStorage.setItem('@user', '0')}}>
       <Image style={styles.guest} source={require("../assets/guest.png")} />
       </TouchableOpacity>
     </View>
