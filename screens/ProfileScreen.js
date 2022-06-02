@@ -1,12 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View, Button, Alert } from 'react-native';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Profile from '../components/ProfileScreen/Profile'
 import { authenthication } from '../firebase.js';
 import { getAuth,signOut } from "firebase/auth";
 import { setUserInfo } from '../data/userInfo.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Header from "../components/Header.js";
+import { useIsFocused } from '@react-navigation/native';
 
 const logOut = async () => {
   signOut(authenthication)
@@ -33,7 +34,13 @@ const logOut = async () => {
   }
 }
 export default function DetailScreen({navigation}) {
-  setUserInfo();
+  
+  const isFocused = useIsFocused();
+  useEffect(() => { 
+    if (isFocused) {    
+      setUserInfo();
+    }
+  }, [isFocused]);
   return (
     <View style={styles.container}>
     <StatusBar translucent={false}/>

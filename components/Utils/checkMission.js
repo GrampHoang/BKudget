@@ -12,6 +12,10 @@ export function checkMission(ID, des) {
     {
         completeMonthMission(1)
     }
+    else if (ID == 3)
+    {
+        completeMonthMission(0)
+    }
     else
     {
         completeDailyMission(0)
