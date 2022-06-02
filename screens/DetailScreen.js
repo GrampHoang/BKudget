@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     header: {
         height: 50,
         padding: 15,
-        backgroundColor: '#26B830',
+        backgroundColor: '#7CFC00',
     },
     container: {
         flex: 1,

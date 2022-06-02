@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     padding: 8,
     margin: 0,
     flexDirection: 'row',
-    backgroundColor: "#4FC462",
+    backgroundColor: "#32CD32",
 
   },
   missionHeader: {

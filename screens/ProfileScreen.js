@@ -40,7 +40,9 @@ export default function DetailScreen({navigation}) {
     <Header value = "0"/>
     <Profile id="0"/>
     <View style={styles.buttons}>
-              <Button title='Đăng xuất' onPress={logOut}/>
+              <Button title='Đăng xuất' 
+              color={'#FF4500'} 
+              onPress={logOut} />
     </View>
   </View>
   );
@@ -53,7 +55,7 @@ const styles = StyleSheet.create({
     header: {
         height: 60,
         padding: 15,
-        backgroundColor: '#16B830',
+        backgroundColor: '#FF4500',
     },
     container: {
         flex: 1,

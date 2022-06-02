@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
         fontSize: 30,
         color: "white",
         height: 50,
-        backgroundColor: '#4FC462',
+        backgroundColor: '#32CD32',
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'center',
