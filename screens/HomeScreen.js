@@ -57,7 +57,7 @@ const HomeScreen = ({route, navigation}) => {
         jsonValue = await AsyncStorage.getItem('@Expense_list')  
         const g = await AsyncStorage.getItem('@Goal')
         const b = await AsyncStorage.getItem('@Balance')
-        if(b !== "0") {
+        if(b !== "0" && b !== null) {
           const p = await AsyncStorage.getItem('@Progress')
           if (p === null)
           {
