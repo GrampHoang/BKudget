@@ -155,7 +155,7 @@ import Header from "../components/Header.js";
         month={item.month} year={item.year}></Day>
         <RenderDailyList date={item.Date} month={item.month} year={item.year}/>
         </>
-        }>
+        } keyExtractor={(item, index) => index.toString()}>
         </FlatList>}
     </View>
   );

@@ -161,7 +161,7 @@ const HomeScreen = ({route, navigation}) => {
     }
   }
   const handleSubmit = () => {
-    if (balance > 0 && goal > 0)
+    if (moneyInt(balance) > 0 && moneyInt(goal)>0)
     {
       if (user != "0" && user != null)
       {
