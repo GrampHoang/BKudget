@@ -19,7 +19,7 @@ LogBox.ignoreLogs(['Setting a timer']);
 const AuthStack = ({navigation}) => {
   return (
       <Stack.Navigator 
-        initialRouteName="Login" screenOptions={{headerShown: false}}
+        initialRouteName="Onboarding" screenOptions={{headerShown: false}}
       >
       <Stack.Screen name="Onboarding" component={OnboardingScreen}/>
           <Stack.Screen name="Login" component={LoginScreen} />
@@ -30,7 +30,7 @@ const AuthStack = ({navigation}) => {
 }
 
 const App = ({navigation}) => {
-  LogBox.ignoreLogs(['Require cycle:'])
+  LogBox.ignoreLogs(['Require cycle:']);
   LogBox.ignoreLogs(['Setting a timer']);
   const { user } = useAuthentication();
   return(
