@@ -6,6 +6,7 @@ import {renderChart} from '../components/HomeScreen/chart.js';
 import {mapExpense, totalExpense} from '../components/HomeScreen/utils.js';
 import {storeExpenseListDataLocal, updateBalanceLocal, newProgressLocal, saveFinanceInitLocal} from '../data/LocalDataHandle.js';
 import {addDatabaseExpense, updateBalanceData, addInitData, newProgressData} from '../data/FireBaseHandle.js';
+import { storeMissionData, resetDaily, setFirstDay} from "../data/localmission";
 import {format, moneyInt} from '../components/Utils/moneyFormat.js';
 import {checkMission} from '../components/Utils/checkMission';
 import {getDoc, doc} from 'firebase/firestore/';
@@ -13,6 +14,7 @@ import { db } from '../firebase.js';
 import { categoriesData } from '../data/category.js';
 import Header from "../components/Header.js";
 import { Dimensions } from 'react-native';
+import { setUserInfo } from '../data/userInfo';
 const HomeScreen = ({route, navigation}) => {
   const [categories, setCategories] = useState([0,0,0,0,0,0])
   const [goal, setGoal] = useState('0');
@@ -29,21 +31,26 @@ const HomeScreen = ({route, navigation}) => {
   //console.log(user)
   useEffect(() => { 
     getData()
+    storeMissionData();
     checkMission(0,"")
     //console.log(route.params?.data)
   },[user]);
   async function getData() {
     try {
+      //await AsyncStorage.clear()
       const u = await AsyncStorage.getItem('@user')
+      
       let jsonValue = ""
-      if (u != "0")
+      
+      if (u !== "0" && u !== null)
       {
+        //console.log(u)
         const Snap = doc(db, "user", u);
         const userData = await getDoc(Snap)
         jsonValue = userData.data().expenseList
         const g = userData.data().goal
         const b = userData.data().balance
-        if(b !== "0") {
+        if(b !== "0" && b!==null) {
           const p = userData.data().progress
           setProgress(p)
           setGoal(g)
@@ -55,9 +62,11 @@ const HomeScreen = ({route, navigation}) => {
       }
       else
       {
+        setUserInfo()
         jsonValue = await AsyncStorage.getItem('@Expense_list')  
         const g = await AsyncStorage.getItem('@Goal')
         const b = await AsyncStorage.getItem('@Balance')
+        
         if(b !== "0" && b !== null) {
           const p = await AsyncStorage.getItem('@Progress')
           if (p === null)

@@ -20,6 +20,7 @@ import Header from "../components/Header.js";
     var thu = getThu();
     var chi = getChi();
     useEffect(() => {
+      
       const getData = async () => {
         const user = await AsyncStorage.getItem('@user');
         if (user != "0") {

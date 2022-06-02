@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
+        marginLeft: 30,
     },
     circle: {
         flex: 3,
@@ -63,16 +64,21 @@ const styles = StyleSheet.create({
     content: {
         fontSize: 20,
         flex: 6,
+        marginLeft: 30,
     },
     moneyminus:{
         color: '#E43232',
         fontSize: 16,
         flex: 6,
+        marginRight: 30,
+        textAlign: 'right'
     },
     moneyplus:{
         color: '#16B830',
         fontSize: 16,
         flex: 6,
+        marginRight: 30,
+        textAlign: 'right'
     },
     img: {
         height: 40,

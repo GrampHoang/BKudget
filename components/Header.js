@@ -9,6 +9,10 @@ import { db } from '../firebase.js';
 export default function Header({value}) {
   const [balance, setBalance] = useState(0);
   const isFocused = useIsFocused();
+  if(value == "0") 
+  {
+    getInitData()
+  }
   useEffect(() => {
       if(value == "0") 
       {

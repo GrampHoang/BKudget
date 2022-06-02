@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
+        paddingHorizontal: 20
     },
     date:{
         color: '#000000',
@@ -53,13 +54,15 @@ const styles = StyleSheet.create({
         fontSize: 24,
         flex: 7,
         fontWeight: 'bold',
-        textAlign: 'center',
+        textAlign: 'right',
+        marginRight: 10,
     },
     moneyplus:{
         color: '#16B830',
         fontSize: 24,
         flex: 7,
         fontWeight: 'bold',
-        textAlign: 'center',
+        textAlign: 'right',
+        marginRight: 10,
     },
 });

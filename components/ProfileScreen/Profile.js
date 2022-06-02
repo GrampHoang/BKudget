@@ -58,16 +58,10 @@ const postData = async () => {
     }
 export default function Profile(props) {
     const [userData,setUserData] = useState([]);   
-
+    setUsrData()
     useEffect(() => { 
         setUsrData()
     }, []);
-    const isFocused = useIsFocused();
-    useEffect(() => { 
-      if (!isFocused) {
-        setUsrData()
-      }
-    }, [isFocused]);
 
     async function setUsrData(){
         try {
@@ -82,7 +76,7 @@ export default function Profile(props) {
                 const userIfJson = await AsyncStorage.getItem('@LocalUser');
                 const userr = JSON.parse(userIfJson);
                 setUserData(userr[0]);
-                // console.log(userData)
+                //console.log(userr)
             }
         }catch(e){
 

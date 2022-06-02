@@ -28,9 +28,15 @@ export default function MissionsScreen() {
   // default mission page content
   const isFocused = useIsFocused();
   useEffect(() => { 
-    storeMissionData();
-    setFirstDay();
-    if (isFocused) {    
+        storeMissionData();
+        setFirstDay();    
+        getMission(),
+        resetDaily()
+  }, [isFocused]);
+  useEffect(() => { 
+    if (isFocused) {
+        storeMissionData();
+        setFirstDay();    
         getMission(),
         resetDaily()
     }
@@ -40,10 +46,13 @@ export default function MissionsScreen() {
     try {
       const dailIn = await AsyncStorage.getItem('@DailyMission')
       const dail = JSON.parse(dailIn);
+      if (dail !== null)
+      {
+        setMissionList(dail);
+      }
       setDailymission(dail);
       setDaily(true);
       setMissionType("Nhiệm vụ hằng ngày");
-      setMissionList(dail);
       const monthIn = await AsyncStorage.getItem('@MonthMission')
       const month = JSON.parse(monthIn);
       setMonthmission(month);
