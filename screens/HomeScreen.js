@@ -29,6 +29,7 @@ const HomeScreen = ({route, navigation}) => {
   //console.log(user)
   useEffect(() => { 
     getData()
+    checkMission(0,"")
     //console.log(route.params?.data)
   },[user]);
   async function getData() {

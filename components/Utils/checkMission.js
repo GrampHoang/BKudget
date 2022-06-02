@@ -12,4 +12,8 @@ export function checkMission(ID, des) {
     {
         completeMonthMission(1)
     }
+    else
+    {
+        completeDailyMission(0)
+    }
 }

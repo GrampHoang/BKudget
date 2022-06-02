@@ -26,16 +26,13 @@ export default function MissionsScreen() {
   const [monthmission, setMonthmission] = useState([]);
   const [missionType, setMissionType] = useState("Nhiệm vụ hằng ngày");
   // default mission page content
-  useEffect(() => { 
-      storeMissionData();
-      setFirstDay();
-      getMission(),
-      resetDaily()
-  }, []);
   const isFocused = useIsFocused();
   useEffect(() => { 
-    if (isFocused) {
-        getMission()
+    storeMissionData();
+    setFirstDay();
+    if (isFocused) {    
+        getMission(),
+        resetDaily()
     }
   }, [isFocused]);
   
