@@ -12,7 +12,7 @@ import {getDoc, doc} from 'firebase/firestore/';
 import { db } from '../firebase.js';
 import { categoriesData } from '../data/category.js';
 import Header from "../components/Header.js";
-
+import { completeDailyMission } from "../data/localmission";
 const HomeScreen = ({route, navigation}) => {
   const [categories, setCategories] = useState([0,0,0,0,0,0])
   const [goal, setGoal] = useState('0');
@@ -123,11 +123,16 @@ const HomeScreen = ({route, navigation}) => {
     }
     else if (amount > 0 && des != '')
     {
-      
       let updateCategories = [...categories];
       updateCategories[categoryID] += amount;
       setCategories(updateCategories)
       const expense = amount * (categoryID == 5 ? 1 : -1)
+      if (categoryID == 0 && des == 'An trua') {
+        completeDailyMission(1);
+      }
+      if (categoryID == 0 && des == 'An toi') {
+        completeDailyMission(2);
+      }
       if (user != "0" && user != null)
       {
         addDatabaseExpense(user, des, amount, categoryID)

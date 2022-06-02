@@ -138,7 +138,8 @@ import Header from "../components/Header.js";
     return chi;
   }
   async function test() {
-    var a = await AsyncStorage.getItem('@user');
+    completeDailyMission(0);
+    var a = await AsyncStorage.getItem('@LogDailyMission');
     console.log(a);
     }
   
