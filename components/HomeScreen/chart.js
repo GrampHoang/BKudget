@@ -3,6 +3,7 @@ import {Svg} from 'react-native-svg';
 import {format} from '../../components/Utils/moneyFormat.js';
 import { COLORS } from "../../constants/themes";
 import {categoriesData} from '../../data/category.js';
+import { Dimensions } from 'react-native';
 
 export function renderChart(categories) {
     let chartData = categoriesData.map((item) => {
@@ -11,6 +12,7 @@ export function renderChart(categories) {
         color: item.color
       }
     })
+    const width = Dimensions.get('window').width;
     // filter out categories with no data/expenses
     let filterChartData = chartData.slice(0,-1).filter(a => a.total > 0)
     // Calculate the total expenses
@@ -26,7 +28,7 @@ export function renderChart(categories) {
       <Svg>
         <VictoryPie
           standalone={false}
-          width={400} height={300}
+          width={width} height={300}
           colorScale = {chartColors}
           data={finalChartData}
           innerRadius={110} 
@@ -38,13 +40,13 @@ export function renderChart(categories) {
         <VictoryLabel
           textAnchor="middle"
           style={{ fontSize: 25, fill: COLORS.lightGreen}}
-          x={200} y={180}
+          x={width/2} y={180}
           text={format(chartData.slice(-1)[0].total)}
         />
         <VictoryLabel
           textAnchor="middle"
           style={{ fontSize: 30 }}
-          x={200} y={140}
+          x={width/2} y={140}
           text= {format(totalExpense)}
         />
       </Svg>

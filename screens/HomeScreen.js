@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from '../components/HomeScreen/style.js';
 import {renderChart} from '../components/HomeScreen/chart.js';
 import {mapExpense, totalExpense} from '../components/HomeScreen/utils.js';
-import {storeExpenseListDataLocal, updateBalanceLocal, newProgressLocal} from '../data/LocalDataHandle.js';
+import {storeExpenseListDataLocal, updateBalanceLocal, newProgressLocal, saveFinanceInitLocal} from '../data/LocalDataHandle.js';
 import {addDatabaseExpense, updateBalanceData, addInitData, newProgressData} from '../data/FireBaseHandle.js';
 import {format, moneyInt} from '../components/Utils/moneyFormat.js';
 import {checkMission} from '../components/Utils/checkMission';
@@ -12,7 +12,7 @@ import {getDoc, doc} from 'firebase/firestore/';
 import { db } from '../firebase.js';
 import { categoriesData } from '../data/category.js';
 import Header from "../components/Header.js";
-import { completeDailyMission } from "../data/localmission";
+import { Dimensions } from 'react-native';
 const HomeScreen = ({route, navigation}) => {
   const [categories, setCategories] = useState([0,0,0,0,0,0])
   const [goal, setGoal] = useState('0');
@@ -80,6 +80,7 @@ const HomeScreen = ({route, navigation}) => {
       // error reading value
     }
   }
+  const wid = Dimensions.get('window').width;
   function renderCategoryList() {
     //console.log(categories)
     let listdata = categoriesData.map((item)=>{return {...item, expense: categories[item.id]}}) 
@@ -96,13 +97,16 @@ const HomeScreen = ({route, navigation}) => {
         <Text style = {{textAlign: 'center',marginVertical: 5, fontSize: 18, color: item.color}}>
           {format(item.name)}
         </Text>
-        <View style = {{marginHorizontal: 35,backgroundColor: item.color, justifyContent: 'center', borderRadius: 30}}>
+        <View style = {{marginHorizontal: wid/12,backgroundColor: item.color,
+              alignContent: 'center', 
+              justifyContent: 'center', 
+              borderRadius: wid/10}}>
           <Image
               source={item.icon}
               style={{
                   width: 40,
                   height: 40,
-                  margin: 10,
+                  margin: wid/35,
               }}
           />
         </View>
