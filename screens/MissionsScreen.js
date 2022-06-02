@@ -16,8 +16,7 @@ import Header from "../components/Header.js";
 // import { pleple } from "../data/localmission";
 // import { completeMonthMission } from "../data/localmission";
 export default function MissionsScreen() {
-  storeMissionData();
-  setFirstDay();
+  
   // pleple();
   // completeMonthMission(1);
 
@@ -28,12 +27,14 @@ export default function MissionsScreen() {
   const [missionType, setMissionType] = useState("Nhiệm vụ hằng ngày");
   // default mission page content
   useEffect(() => { 
+      storeMissionData();
+      setFirstDay();
       getMission(),
       resetDaily()
   }, []);
   const isFocused = useIsFocused();
   useEffect(() => { 
-    if (!isFocused) {
+    if (isFocused) {
         getMission()
     }
   }, [isFocused]);
