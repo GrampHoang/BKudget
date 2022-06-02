@@ -38,6 +38,7 @@ export async function saveFinanceInitLocal(balance, goal) {
     try {
       await AsyncStorage.setItem('@Balance', balance)
       await AsyncStorage.setItem('@Goal', goal)
+      await AsyncStorage.setItem('@Progress', '0')
     } catch (e) {
       // saving error
     }
