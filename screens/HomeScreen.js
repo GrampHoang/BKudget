@@ -59,7 +59,11 @@ const HomeScreen = ({route, navigation}) => {
         const b = await AsyncStorage.getItem('@Balance')
         if(b !== "0") {
           const p = await AsyncStorage.getItem('@Progress')
-          setProgress(p)
+          if (p === null)
+          {
+            await AsyncStorage.setItem('@Progress', format(0))
+          }
+          else setProgress(p)
           setBalance(b)
           setGoal(g)
         }
