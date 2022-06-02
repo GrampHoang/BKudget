@@ -127,12 +127,6 @@ const HomeScreen = ({route, navigation}) => {
       updateCategories[categoryID] += amount;
       setCategories(updateCategories)
       const expense = amount * (categoryID == 5 ? 1 : -1)
-      if (categoryID == 0 && des == 'An trua') {
-        completeDailyMission(1);
-      }
-      if (categoryID == 0 && des == 'An toi') {
-        completeDailyMission(2);
-      }
       if (user != "0" && user != null)
       {
         addDatabaseExpense(user, des, amount, categoryID)
