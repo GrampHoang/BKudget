@@ -20,7 +20,7 @@ const postData = async (username) => {
   const user = await AsyncStorage.getItem('@user');
   await setDoc(doc(db, "user", user), {
       point: 0,
-      loginStreak: 0,
+      loginStreak: 1,
       missionComplete: 0,
       goal: "0",
       balance: "0",
@@ -137,6 +137,7 @@ export default function RegisterScreen({navigation}) {
           style={styles.TextInput}
           placeholder="Email"
           placeholderTextColor="#808080"
+          autoCapitalize="none"
           onChangeText={(email) => setEmail(email)}
         />
       </View>
@@ -145,6 +146,7 @@ export default function RegisterScreen({navigation}) {
         <TextInput
           style={styles.TextInput}
           placeholder="Mật khẩu."
+          autoCapitalize="none"
           placeholderTextColor="#808080"
           secureTextEntry={passwordVisibility}
           onChangeText={password => setPassword(password)}

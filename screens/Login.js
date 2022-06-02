@@ -83,7 +83,7 @@ export default function LoginScreen({navigation}) {
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
-          autoCapitalize='none'
+          autoCapitalize="none"
           placeholder="Mật khẩu."
           placeholderTextColor="#808080"
           secureTextEntry={passwordVisibility}

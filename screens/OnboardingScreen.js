@@ -1,6 +1,8 @@
 import { Image, StyleSheet, View , Button, Pressable, Text } from 'react-native';
 import React from 'react';
 import Onboarding from 'react-native-onboarding-swiper';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { async } from '@firebase/util';
 
 const backgroundColor = isLight => (isLight ? "#000000" : "#000000");
 const color = isLight => backgroundColor(!isLight);
@@ -39,14 +41,29 @@ const Next = ({...props }) => (
   </Pressable>
 );
 
+async function firstTime({navigation}) {
+  try {
+    const firstLaunched = await AsyncStorage.getItem('@FirstTime');
+    if(firstLaunched === null || firstLaunched !== 'false') {
+      AsyncStorage.setItem('@FirstTime', 'false');
+    }
+    else{
+      navigation.navigate("Login");
+    }
+  } catch(e) {
+    // error reading value
+  }
+}
 
-const OnboardingScreen = ({navigation}) => (
+const OnboardingScreen = ({navigation}) => {
+  firstTime({navigation})
+  return(
   <Onboarding
     DotComponent={Square}
     NextButtonComponent={Next}
     SkipButtonComponent={Skip}
     DoneButtonComponent={Done}
-    bottomBarColor = "#F6FFF6"
+    bottomBarColor = "#EDFFED"
     onSkip={() => navigation.navigate("Login")}
     onDone={() => navigation.navigate("Login")}
     pages={[
@@ -84,7 +101,8 @@ const OnboardingScreen = ({navigation}) => (
       },
     ]}
   />
-);
+  )
+  };
 
 export default OnboardingScreen;
 
