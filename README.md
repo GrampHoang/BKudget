@@ -1,4 +1,4 @@
 # BKudget
-HCMUT Mobile App Dev
+HCMUT Mobile App Dev Class
 
-App quản lý tiền bạc đơn giản.
+Simple app to help with Money management, we closed its backend as of 2023 so this app no longer work
